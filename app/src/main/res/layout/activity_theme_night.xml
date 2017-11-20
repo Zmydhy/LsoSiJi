@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zmy.laosiji.Activity.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_theme"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="54dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/btn_bg"
+                android:padding="10dp"
+                android:text="点击切换主题"
+                android:textColor="@color/btn_theme"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:text="哈哈哈" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_menu_camera"
+        app:fabSize="normal"
+        app:layout_behavior="com.zmy.laosiji.CustomView.ScrollAwareBehavior" />
+
+</android.support.design.widget.CoordinatorLayout>

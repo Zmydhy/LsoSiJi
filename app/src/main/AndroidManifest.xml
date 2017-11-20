@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zmy.laosiji">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+
+    <application
+        android:name=".Utils.Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/bg_android"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/bg_android"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="com.zmy.laosiji.Utils.GlideModuleSetting"
+            android:value="GlideModule" />
+
+        <activity
+            android:name=".Activity.WorkSpaceActivity"
+            android:label="老司机"
+            android:theme="@style/AppTheme.toDarwer">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.ThemeNightActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.CustomViewActivity" />
+        <activity android:name=".Activity.ByclerViewActivity" />
+        <activity android:name=".Activity.MenuActivity" />
+        <activity android:name=".Activity.TranslateActivity" />
+        <activity
+            android:name=".Activity.MatialDesignActivity"
+            android:theme="@style/AppTheme.toDarwer"></activity>
+    </application>
+
+</manifest>

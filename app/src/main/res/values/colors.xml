@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ce3d3a</color>
+    <color name="colorPrimaryDark">#ce3d3a</color>
+    <color name="colorAccent">#ce3d3a</color>
+
+    <color name="btn_theme">#FFFFFF</color>
+    <color name="btn_bg">#000000</color>
+    <color name="btn_meizi_bg">#E0E0E0</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="red">#f0ff0000</color>
+    <color name="blue">#0000ff</color>
+    <color name="gray">#cccccc</color>
+    <color name="green">#bf00ff00</color>
+    <color name="popue">#9C27B0</color>
+    <color name="pink">#FF4081</color>
+    <color name="yellow">#f3ae36</color>
+    <color name="translte">#88000000</color>
+    <color name="untranslte">#00000000</color>
+
+
+    <!-- button 背景色 -->
+    <color name="btn_green_normal">#0aaab8</color>
+    <color name="btn_green_pressed">#66CAC4</color>
+    <color name="btn_blue_normal">#005596</color>
+    <color name="btn_blue_pressed">#4884B1</color>
+    <color name="btn_red_normal">#eb736b</color>
+    <color name="btn_red_pressed">#F4A4AB</color>
+    <color name="btn_gray_normal">#9b9b9b</color>
+    <color name="btn_gray_pressed">#E0E0E0</color>
+    <color name="btn_yellow_normal">#f3ae36</color>
+    <color name="btn_yellow_pressed">#F9CA7B</color>
+
+    <!--launcherView need-->
+    <color name="load_red">#fa007a</color>
+    <color name="load_purple">#935fe7</color>
+    <color name="load_yellow">#f9b11f</color>
+    <color name="load_blue">#009cfa</color>Ω
+
+    <color name="item_border_color">#666666</color>
+    <color name="item_default_color">#22EEEEEE</color>
+    <color name="item_pressed_color">#CCCCCC</color>
+    <color name="item_activated_color">#77CEEE</color>
+
+
+
+</resources>

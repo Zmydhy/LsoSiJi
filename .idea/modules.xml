@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LaoSiJi.iml" filepath="$PROJECT_DIR$/LaoSiJi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app-night/app-night.iml" filepath="$PROJECT_DIR$/app-night/app-night.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coordinatortablayout/coordinatortablayout.iml" filepath="$PROJECT_DIR$/coordinatortablayout/coordinatortablayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mvpdemo/mvpdemo.iml" filepath="$PROJECT_DIR$/mvpdemo/mvpdemo.iml" />
+    </modules>
+  </component>
+</project>
