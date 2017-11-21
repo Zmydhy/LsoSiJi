@@ -1,12 +1,10 @@
-package com.zmy.laosiji.CustomView;
+package com.zmy.laosiji.Fragment;
 
-import android.content.Context;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
-import android.widget.LinearLayout;
+
+import com.zmy.laosiji.R;
 
 /**
- * Created by Michael on 2017/11/1.
+ * Created by Michael on 2017/11/20.
  * 　　　┏┓　　　┏┓
  * 　　┏┛┻━━━┛┻┓
  * 　　┃　　　　　　　┃
@@ -26,21 +24,9 @@ import android.widget.LinearLayout;
  * 　　　　　┗┻┛　┗┻┛
  */
 
-public class TranslateLayout extends LinearLayout {
-    public TranslateLayout(Context context) {
-        this(context,null);
-    }
-
-    public TranslateLayout(Context context, @Nullable AttributeSet attrs) {
-        this(context,attrs,0);
-    }
-
-    public TranslateLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
-    private void init() {
-
+public class ShaderFragment extends BaseFragment {
+    @Override
+    public void initView() {
+        setView("刮刮乐",R.layout.fragment_guaguale);
     }
 }

@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_horizontal"
-    android:layout_marginTop="7.5dp"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
     android:layout_marginBottom="7.5dp"
     android:layout_marginLeft="10dp"
-    android:background="@color/btn_meizi_bg"
     android:layout_marginRight="10dp"
-    android:orientation="vertical">
+    android:layout_marginTop="7.5dp"
+    android:background="@color/btn_meizi_bg">
+
     <android.support.v7.widget.CardView
         android:id="@+id/item__meizi_card"
         android:layout_width="match_parent"
-        app:cardCornerRadius="45dp"
+        android:layout_height="match_parent"
         android:background="@color/btn_meizi_bg"
-        app:cardElevation="15dp"
-        android:layout_height="250dp">
+        app:cardCornerRadius="45dp"
+        app:cardElevation="10dp">
+
         <ImageView
             android:id="@+id/img_item_meizhi"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bg_ios" />
+        <View
+            android:id="@+id/image_item_ischeck"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/conner_item_image" />
     </android.support.v7.widget.CardView>
 
 
 
-</LinearLayout>
+
+
+
+
+</RelativeLayout>

@@ -87,7 +87,6 @@ public class WorkSpaceActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            overridePendingTransition(R.anim.right_in_back, R.anim.right_out_back);
         }
     }
 
@@ -141,11 +140,4 @@ public class WorkSpaceActivity extends AppCompatActivity
         return true;
     }
 
-
-
-    @Override
-    public void startActivity(Intent intent) {
-        super.startActivity(intent);
-        overridePendingTransition(R.anim.right_in, R.anim.right_out);
-    }
 }
