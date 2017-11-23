@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/translte"
+    tools:context="com.zmy.laosiji.Activity.TransitionToActivity">
+
+
+
+    <ImageView
+        android:id="@+id/img_transition_to"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:scaleType="centerCrop"
+        android:transitionName="testImg" />
+
+    <LinearLayout
+        android:id="@+id/lin_transiton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_margin="25dp"
+        android:background="@color/untranslte"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/lin_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_transition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="移动" />
+            <Button
+                android:id="@+id/btn_transition1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="颜色" />
+            <Button
+                android:id="@+id/btn_transition2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="布局" />
+            <Button
+                android:id="@+id/btn_transition3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fuck" />
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/tv_tansition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当你想要从一个Activity A转换到Activity B，而且他们共享一个元素（比如是一个view），在这种场景下，最好的用户体验可能就是将共享的元素直接变换到最终的地方和大小，这会使用户专注于应用而且有一种连贯性的表达。那么怎么实现这样的过渡呢？可能需要一些步骤"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:id="@+id/tv_tansition1"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="在app中适当得使用上Transition能带来较好的用户体验，视频中介绍了该框架的基本使用以及其中核心的一些类和方法，只有学会这些基本的API才能在之后的Activity/Fragment过渡定制一些自己想要的效果。"/>
+        <TextView
+            android:id="@+id/tv_tansition2"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学会这些基本的API才能在之后的Activity/Fragment过渡定制一些自己想要的效果。"/>
+    </LinearLayout>
+
+</RelativeLayout>

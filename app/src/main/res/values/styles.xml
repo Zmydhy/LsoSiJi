@@ -12,22 +12,68 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.toDarwer" parent="AppTheme.NoActionBar">
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name= "android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="MenuActivitytext" >
-        <item name="android:layout_width" >match_parent</item>
+
+    <style name="MenuActivitytext">
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">10dp</item>
         <item name="android:textSize">16sp</item>
-        <item name ="android:textColor">@color/gray</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="Translucent" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme.NoActionBar">
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowBackground">@drawable/background_splash</item>
+
+        <!-- 允许使用transitions -->
+        <!--<item name="android:windowContentTransitions">true</item>-->
+        <!--是否覆盖执行，其实可以理解成是否同步执行还是顺序执行-->
+        <!--
+                <item name="android:windowAllowEnterTransitionOverlap">false</item>
+                <item name="android:windowAllowReturnTransitionOverlap">false</item>
+        -->
+        <!-- 指定进入和退出transitions -->
+        <!--      <item name="android:windowEnterTransition">@transition/spalshactivity_open</item>
+              <item name="android:windowExitTransition">@transition/spalshactivity_open</item>-->
+    </style>
+
+    <style name="Toolbar_Back_Theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+    </style>
+    <!--设置toolbar弹出菜单的位置-->
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--设置为false即可使menu位置位于toolbar之下-->
+    </style>
+    <!--修改toolbar弹出剩余隐藏菜单条目按钮的样式-->
+    <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
+        <item name="android:src">@android:drawable/ic_lock_idle_alarm</item>
     </style>
 
 </resources>

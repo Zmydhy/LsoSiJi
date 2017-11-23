@@ -2,7 +2,6 @@ package com.zmy.laosiji.Activity;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TranslateActivity extends AppCompatActivity {
+public class TranslateActivity extends BaseActivity {
 
     @BindView(R.id.img_android)
     ImageView imgAndroid;
@@ -36,11 +35,18 @@ public class TranslateActivity extends AppCompatActivity {
     private float mDensity;
     private int mHiddenViewHeight;
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_translate);
+//
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_translate);
-        ButterKnife.bind(this);
+    protected void setContentView(Bundle savedInstanceState) {
+        setContentLayout(R.layout.activity_translate);
+        setTitle("移动布局");//设置标题
+
         //获取像素密度
         mDensity = getResources().getDisplayMetrics().density;
         mHiddenViewHeight = (int) (mDensity * 200 + 0.5);
@@ -83,7 +89,6 @@ public class TranslateActivity extends AppCompatActivity {
         animator.start();
     }
 
-
     @OnClick({R.id.btn_start, R.id.img_ios})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -108,4 +113,14 @@ public class TranslateActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+
+
 }

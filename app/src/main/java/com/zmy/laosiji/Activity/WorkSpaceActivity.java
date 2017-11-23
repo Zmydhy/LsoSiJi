@@ -1,5 +1,6 @@
 package com.zmy.laosiji.Activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -34,6 +35,7 @@ public class WorkSpaceActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //设置隐藏通知栏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -125,8 +127,8 @@ public class WorkSpaceActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_dev) {
-            Intent intent = new Intent(this,MenuActivity.class);
-            startActivity(intent);
+            Intent intent=new Intent(WorkSpaceActivity.this,MenuActivity.class);
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());;
 
         } else if (id == R.id.nav_setting) {
 

@@ -46,7 +46,7 @@
         android:background="@color/gray"/>
     <TextView
         android:id="@+id/text6"
-        android:text="暂未开发"
+        android:text="transition"
         style="@style/MenuActivitytext"/>
     <View
         android:layout_width="match_parent"

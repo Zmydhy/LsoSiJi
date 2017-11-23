@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +21,10 @@ import com.zmy.laosiji.R;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ByclerViewActivity extends AppCompatActivity {
+/**
+ * 引入阿里的vlayut布局
+ */
+public class ByclerViewActivity extends BaseActivity {
 
     private RecyclerView recycler;
     private static final boolean SIGNLE_LAYOUT = true;
@@ -30,19 +32,18 @@ public class ByclerViewActivity extends AppCompatActivity {
     private static final boolean OTHERS_LAYOUT = true;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bycler_view);
+    protected void setContentView(Bundle savedInstanceState) {
+        setContentLayout(R.layout.activity_bycler_view);
         recycler = (RecyclerView) findViewById(R.id.b_recycler_view);
 
-         VirtualLayoutManager layoutManager = new VirtualLayoutManager(this);
+        VirtualLayoutManager layoutManager = new VirtualLayoutManager(this);
         recycler.setLayoutManager(layoutManager);
 
         RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
         recycler.setRecycledViewPool(viewPool);
         viewPool.setMaxRecycledViews(0, 20);
 
-         DelegateAdapter delegateAdapter = new DelegateAdapter(layoutManager, true);
+        DelegateAdapter delegateAdapter = new DelegateAdapter(layoutManager, true);
 
         recycler.setAdapter(delegateAdapter);
 
@@ -74,7 +75,6 @@ public class ByclerViewActivity extends AppCompatActivity {
             adapters.add(new SubAdapter(this, helper, 24));
         }
         delegateAdapter.setAdapters(adapters);
-
     }
 
     public class SubAdapter extends DelegateAdapter.Adapter<MainViewHolder>{

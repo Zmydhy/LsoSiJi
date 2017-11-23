@@ -9,8 +9,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/b_recycler_view"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#aaaaaa"
         android:clipToPadding="true"
         android:paddingLeft="0dp"

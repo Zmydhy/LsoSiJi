@@ -17,6 +17,8 @@
             android:orientation="vertical">
             <ImageView
                 android:id="@+id/img_android"
+                android:transitionName="testImg"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/bg_android"/>
@@ -24,10 +26,15 @@
                 android:id="@+id/img_js"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:transitionName="testImg"
+                android:scaleType="centerCrop"
                 android:background="@mipmap/bg_js"/>
             <ImageView
+                android:id="@+id/img_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:transitionName="testImg"
+                android:scaleType="centerCrop"
                 android:background="@mipmap/bg_other"/>
         </LinearLayout>
     </ScrollView>

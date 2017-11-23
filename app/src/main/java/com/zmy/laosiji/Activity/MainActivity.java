@@ -5,7 +5,6 @@ import android.support.design.internal.SnackbarContentLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +34,7 @@ import io.reactivex.schedulers.Schedulers;
  * 2 移动指定位置
  * 3 状态保存
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private int  PAGE = 1;
     private int COUNT=10;
     private RecyclerView mRecyclerView;
@@ -55,15 +54,19 @@ public class MainActivity extends AppCompatActivity {
     private int mToPosition;
     private List<Boolean> mCheacks;
 
+    /**
+     * 应为base里已经有toolbar了，当activity中再次含有toolbar是使用settoolbatid设置
+     * 同时隐藏base里的toolbar，所有settitle没有作用
+     * @param savedInstanceState
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void setContentView(Bundle savedInstanceState) {
+        setContentLayout(R.layout.activity_main);
+        setToolBarId(R.id.toolbar);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coorlayout_meizhi);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mFloatBtn = (FloatingActionButton) findViewById(R.id.fab_main);
-        mToolbar= (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+
 //        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));

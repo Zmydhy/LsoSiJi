@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,9 +11,8 @@ import android.widget.RelativeLayout;
 import com.zmy.laosiji.R;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class MatialDesignActivity extends AppCompatActivity {
+public class MatialDesignActivity extends BaseActivity {
 
     @BindView(R.id.imageview)
     ImageView imageview;
@@ -30,12 +28,8 @@ public class MatialDesignActivity extends AppCompatActivity {
     FloatingActionButton fab;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_matial_design);
-        ButterKnife.bind(this);
-
-        toolbar= (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    protected void setContentView(Bundle savedInstanceState) {
+        setContentLayout(R.layout.activity_matial_design);
+        setToolBarId(R.id.toolbar);
     }
 }
