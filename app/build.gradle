@@ -36,7 +36,6 @@ dependencies {
     compile('com.alibaba.android:vlayout:1.0.9@aar') {
         transitive = true
     }
-    compile project(':coordinatortablayout')
     // skin-support-design material design 控件支持[可选]
     // skin-support-cardview CardView 控件支持[可选]
     // skin-support-constraint-layout ConstraintLayout 控件支持[可选]

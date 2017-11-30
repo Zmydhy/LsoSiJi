@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -14,44 +13,49 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zmy.laosiji.Entity.MeizhiEntity;
 import com.zmy.laosiji.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Michael on 2017/8/9.
+ * Created by Michael on 2017/11/30.
+ * 　　　┏┓　　　┏┓
+ * 　　┏┛┻━━━┛┻┓
+ * 　　┃　　　　　　　┃
+ * 　　┃　　　━　　　┃
+ * 　　┃　┳┛　┗┳　┃
+ * 　　┃　　　　　　　┃
+ * 　　┃　　　┻　　　┃
+ * 　　┃　　　　　　　┃
+ * 　　┗━┓　　　┏━┛Code is far away from bug with the animal protecting
+ * 　　　　┃　　　┃    神兽保佑,代码无bug
+ * 　　　　┃　　　┃
+ * 　　　　┃　　　┗━━━┓
+ * 　　　　┃　　　　　 ┣┓
+ * 　　　　┃　　　　 ┏┛
+ * 　　　　┗┓┓┏━┳┓┏┛
+ * 　　　　　┃┫┫　┃┫┫
+ * 　　　　　┗┻┛　┗┻┛
  */
-
-public class MeiZhiAdapter extends RecyclerView.Adapter<MeiZhiAdapter.ViewHolders> {
+public class MeiZhiWorkAdapter extends RecyclerView.Adapter<MeiZhiWorkAdapter.ViewHolder> {
     private OnItemClickListener mItemClickListener = null;
-    private OnItemLongClickListener mLongClickListener = null;
+    private OnItemLongClickListener mLongClickListener = null ;
     private List<MeizhiEntity.ResultsBean> mLists;
     private Context mContext;
-    private int layoutId = 0;
-    private List<Integer> mHeights;
+    private  int layoutId = 0;
 
-    public MeiZhiAdapter(List<MeizhiEntity.ResultsBean> list, int layoutId) {
+    public MeiZhiWorkAdapter(List<MeizhiEntity.ResultsBean> list ,int layoutId) {
         this.layoutId = layoutId;
         mLists = list;
-        mHeights = new ArrayList<>();
     }
 
     @Override
-    public ViewHolders onCreateViewHolder(ViewGroup parent, int position) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
         mContext = parent.getContext();
-        return new ViewHolders(v);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolders holder, final int position) {
-        // 随机高度, 模拟瀑布效果.
-        if (mHeights.size() <= position) {
-            mHeights.add((int) (300 + Math.random() * 700));
-        }
-        ViewGroup.LayoutParams lp =  holder.itemView.getLayoutParams();
-        lp.height = mHeights.get(position);
-        holder.itemView.setLayoutParams(lp);
-
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         MeizhiEntity.ResultsBean mResulrBean = mLists.get(position);
         Glide.with(mContext)
                 .load(mResulrBean.getUrl())
@@ -65,21 +69,19 @@ public class MeiZhiAdapter extends RecyclerView.Adapter<MeiZhiAdapter.ViewHolder
                 mItemClickListener.onItemClik(view,position);
             }
         });
-
-
     }
+
 
     @Override
     public int getItemCount() {
         return mLists.size();
     }
 
-    class ViewHolders extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView mText;
-        private LinearLayout item_work_views ;
 
-        public ViewHolders(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.item_work_meizhi);
             mText = (TextView) itemView.findViewById(R.id.item_work_text);
@@ -89,7 +91,6 @@ public class MeiZhiAdapter extends RecyclerView.Adapter<MeiZhiAdapter.ViewHolder
     public void setOnItemClick(OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
-
     public void setOnLongItemClick(OnItemLongClickListener mItemClickListener) {
         this.mLongClickListener = mItemClickListener;
     }

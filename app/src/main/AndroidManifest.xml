@@ -38,10 +38,12 @@
         <activity android:name=".Activity.ByclerViewActivity" />
         <activity android:name=".Activity.MenuActivity" />
         <activity android:name=".Activity.TranslateActivity" />
+        <activity android:name=".Activity.MeizhiItemActivity" />
         <activity
             android:name=".Activity.MatialDesignActivity"
             android:theme="@style/Translucent" />
         <activity android:name=".Activity.TransitionActivity" />
+        <activity android:name=".Activity.ScrollActivity" />
         <activity
             android:name=".Activity.TransitionToActivity"
             android:theme="@style/Translucent" />

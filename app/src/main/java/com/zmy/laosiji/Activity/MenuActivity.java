@@ -53,7 +53,7 @@ public class MenuActivity extends BaseActivity {
         slide.excludeTarget(R.id.toolbar, true);
         getWindow().setExitTransition(slide);
     }
-    @OnClick({R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5, R.id.text6})
+    @OnClick({R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5, R.id.text6, R.id.text7, R.id.text8, R.id.text9, R.id.text10})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text1:
@@ -74,6 +74,18 @@ public class MenuActivity extends BaseActivity {
             case R.id.text6:
                 Intent intent=new Intent(MenuActivity.this,TransitionActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());;
+                break;
+            case R.id.text7:
+                startActivitys(ScrollActivity.class);
+                break;
+            case R.id.text8:
+                startActivitys(ThemeNightActivity.class);
+                break;
+            case R.id.text9:
+                startActivitys(ByclerViewActivity.class);
+                break;
+            case R.id.text10:
+                startActivitys(MatialDesignActivity.class);
                 break;
             default:
                 break;

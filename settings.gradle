@@ -1,1 +1,1 @@
-include ':app', ':coordinatortablayout', ':app-night', ':mvpdemo'
+include ':app',  ':app-night', ':mvpdemo'

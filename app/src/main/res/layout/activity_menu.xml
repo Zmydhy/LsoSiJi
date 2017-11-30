@@ -52,6 +52,38 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/text7"
+        android:text="view的滑动"
+        style="@style/MenuActivitytext"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/text8"
+        android:text="暂未开发"
+        style="@style/MenuActivitytext"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/text9"
+        android:text="暂未开发"
+        style="@style/MenuActivitytext"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/text10"
+        android:text="暂未开发"
+        style="@style/MenuActivitytext"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
 
 
 </LinearLayout>

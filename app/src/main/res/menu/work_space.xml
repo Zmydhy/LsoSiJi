@@ -2,8 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_ver"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="竖向"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_hor"
+        android:orderInCategory="100"
+        android:title="横向"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_pubu"
+        android:orderInCategory="100"
+        android:title="瀑布流"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_duobuju"
+        android:orderInCategory="100"
+        android:title="多布局"
+        app:showAsAction="never" />
+
 </menu>

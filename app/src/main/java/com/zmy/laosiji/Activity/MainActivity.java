@@ -35,15 +35,15 @@ import io.reactivex.schedulers.Schedulers;
  * 3 状态保存
  */
 public class MainActivity extends BaseActivity {
-    private int  PAGE = 1;
-    private int COUNT=10;
+    private int PAGE = 1;
+    private int COUNT = 10;
     private RecyclerView mRecyclerView;
     private MeiZhisAdapter meiZhiAdapter;
     private Toolbar mToolbar;
     private Snackbar mSnackBarRootView;
     private CoordinatorLayout mCoordinatorLayout;
     private FloatingActionButton mFloatBtn;
-    private List<MeizhiEntity.ResultsBean> mLists  = new ArrayList<>();
+    private List<MeizhiEntity.ResultsBean> mLists = new ArrayList<>();
     /**
      * 目标项是否在最后一个可见项之后
      */
@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 应为base里已经有toolbar了，当activity中再次含有toolbar是使用settoolbatid设置
      * 同时隐藏base里的toolbar，所有settitle没有作用
+     *
      * @param savedInstanceState
      */
     @Override
@@ -68,15 +69,17 @@ public class MainActivity extends BaseActivity {
         mFloatBtn = (FloatingActionButton) findViewById(R.id.fab_main);
 
 //        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);//设置排列反顺序
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 //        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
 //        mRecyclerView.setLayoutManager(gridLayoutManager);
 
         init();
     }
 
-    public void showSnackBar(View view ,int position ,String  ischeck ) {
-        mSnackBarRootView = Snackbar.make(mCoordinatorLayout, ischeck+"第"+(position+1)+"item", Snackbar.LENGTH_INDEFINITE);
+    public void showSnackBar(View view, int position, String ischeck) {
+        mSnackBarRootView = Snackbar.make(mCoordinatorLayout, ischeck + "第" + (position + 1) + "item", Snackbar.LENGTH_INDEFINITE);
         mSnackBarRootView.setDuration(1000);
 //        mSnackBarRootView.setActionTextColor(getResources().getColor(android.R.color.holo_orange_dark));
 //        mSnackBarRootView.setAction("ActionView", new View.OnClickListener() {
@@ -94,6 +97,7 @@ public class MainActivity extends BaseActivity {
         View view = snackbar.getView();
         view.setBackgroundColor(getResources().getColor(android.R.color.holo_purple));
     }
+
     private void changeSnackBarMessageViewTextColor(Snackbar snackbar) {
         ViewGroup viewGroup = (ViewGroup) snackbar.getView();
         SnackbarContentLayout contentLayout = (SnackbarContentLayout) viewGroup.getChildAt(0);
@@ -130,15 +134,15 @@ public class MainActivity extends BaseActivity {
             }
         });
         mCheacks = new ArrayList<>();
-        meiZhiAdapter = new MeiZhisAdapter(mLists ,mCheacks);
+        meiZhiAdapter = new MeiZhisAdapter(mLists, mCheacks);
         mRecyclerView.setAdapter(meiZhiAdapter);
         meiZhiAdapter.setOnItemClick(new MeiZhisAdapter.OnItemClickListener() {
             @Override
             public void onItemClik(View view, int position) {
-                if(mCheacks.get(position)){
-                    showSnackBar(view , position,"取消选中");
-                }else{
-                    showSnackBar(view , position,"选中");
+                if (mCheacks.get(position)) {
+                    showSnackBar(view, position, "取消选中");
+                } else {
+                    showSnackBar(view, position, "选中");
                 }
             }
         });
@@ -148,14 +152,14 @@ public class MainActivity extends BaseActivity {
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                smoothMoveToPosition(mRecyclerView,0);
+                smoothMoveToPosition(mRecyclerView, 0);
             }
         });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Log.i("TAG","newState:"+newState );
+                Log.i("TAG", "newState:" + newState);
 
                 if (mShouldScroll) {
                     mShouldScroll = false;
@@ -170,7 +174,7 @@ public class MainActivity extends BaseActivity {
                     int itemCount = manager.getItemCount();
 
                     // 判断是否滑动到了最后一个Item，并且是向左滑动
-                    if (lastItemPosition == (itemCount - 1) ) {
+                    if (lastItemPosition == (itemCount - 1)) {
                         PAGE++;
                         // 加载更多
                         onLoadMore(PAGE);
@@ -181,7 +185,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Log.i("TAG","dx:"+dx +",dy:"+dy);
+                Log.i("TAG", "dx:" + dx + ",dy:" + dy);
             }
         });
 
@@ -190,7 +194,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 加载更多
      */
-    private void onLoadMore(int  page) {
+    private void onLoadMore(int page) {
         Observable<MeizhiEntity> meizhiCall = RetrofitFactory.getInstance().getApi().getMeiZhi("福利", COUNT, PAGE);
         meizhiCall.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<MeizhiEntity>() {
