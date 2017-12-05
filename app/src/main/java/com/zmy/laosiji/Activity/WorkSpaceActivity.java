@@ -190,8 +190,6 @@ public class WorkSpaceActivity extends AppCompatActivity
             });
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -205,7 +203,8 @@ public class WorkSpaceActivity extends AppCompatActivity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_duanzi) {
-
+            Intent intent = new Intent(this, MusicActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_dev) {
             Intent intent = new Intent(WorkSpaceActivity.this, MenuActivity.class);

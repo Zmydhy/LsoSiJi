@@ -79,7 +79,7 @@ public class MenuActivity extends BaseActivity {
                 startActivitys(ScrollActivity.class);
                 break;
             case R.id.text8:
-                startActivitys(ThemeNightActivity.class);
+                startActivitys(AIDLActivity.class);
                 break;
             case R.id.text9:
                 startActivitys(ByclerViewActivity.class);

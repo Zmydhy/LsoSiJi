@@ -62,7 +62,7 @@
         android:background="@color/gray"/>
     <TextView
         android:id="@+id/text8"
-        android:text="暂未开发"
+        android:text="AIDL"
         style="@style/MenuActivitytext"/>
     <View
         android:layout_width="match_parent"

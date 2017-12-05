@@ -68,6 +68,8 @@ public class ScrollActivity extends BaseActivity {
                 break;
             case R.id.view_scroll_1:
                 break;
+                default:
+                    break;
         }
     }
 }

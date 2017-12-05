@@ -111,6 +111,8 @@ public class TranslateActivity extends BaseActivity {
                 linTranslte.setBackgroundColor(getResources().getColor(R.color.untranslte));
                 scrollTransltes.setEnabled(true);
                 break;
+                default:
+                    break;
         }
     }
 
