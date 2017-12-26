@@ -12,6 +12,15 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+    <style name="MyProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/colorPrimary</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+    </style>
 
     <style name="AppTheme.toDarwer" parent="AppTheme.NoActionBar">
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->

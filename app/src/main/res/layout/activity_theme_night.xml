@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zmy.laosiji.Activity.MainActivity">
+    tools:context="com.zmy.laosiji.activity.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -101,14 +101,5 @@
     </android.support.v4.widget.NestedScrollView>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_menu_camera"
-        app:fabSize="normal"
-        app:layout_behavior="com.zmy.laosiji.CustomView.ScrollAwareBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.zmy.laosiji.CustomView.CircleVIew
+    <com.zmy.laosiji.customview.CircleVIew
         android:id="@+id/fragment_ciecle"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

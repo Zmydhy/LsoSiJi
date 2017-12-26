@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/translte"
-    tools:context="com.zmy.laosiji.Activity.TransitionToActivity">
+    tools:context="com.zmy.laosiji.activity.TransitionToActivity">
 
 
 

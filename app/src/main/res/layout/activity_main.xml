@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/btn_meizi_bg"
     android:fitsSystemWindows="true"
-    tools:context="com.zmy.laosiji.Activity.MainActivity">
+    tools:context="com.zmy.laosiji.activity.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -48,6 +48,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_upload"
         app:fabSize="normal"
-        app:layout_behavior="com.zmy.laosiji.CustomView.ScrollAwareBehavior" />
+        app:layout_behavior="com.zmy.laosiji.customview.ScrollAwareBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

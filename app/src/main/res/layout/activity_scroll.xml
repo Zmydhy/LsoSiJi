@@ -42,7 +42,7 @@
             android:layout_height="30dp"
             android:background="@color/popue"/>
     </RelativeLayout>
-    <com.zmy.laosiji.CustomView.StickScrollView
+    <com.zmy.laosiji.customview.StickScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <View
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/green"/>
-    </com.zmy.laosiji.CustomView.StickScrollView>>
+    </com.zmy.laosiji.customview.StickScrollView>>
 
 
 </RelativeLayout>

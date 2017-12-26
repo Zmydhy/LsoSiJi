@@ -8,9 +8,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application
-        android:name=".Utils.MyApplication"
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/laosiji_icon"
         android:label="@string/app_name"
@@ -18,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,31 +30,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.WorkSpaceActivity"
+            android:name=".activity.WorkSpaceActivity"
             android:theme="@style/AppTheme.toDarwer" />
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <meta-data
-            android:name="com.zmy.laosiji.Utils.GlideModuleSetting"
-            android:value="GlideModule" />
-
         <activity
-            android:name=".Activity.ThemeNightActivity"
+            android:name=".activity.ThemeNightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.CustomViewActivity" />
-        <activity android:name=".Activity.ByclerViewActivity" />
-        <activity android:name=".Activity.MenuActivity" />
-        <activity android:name=".Activity.TranslateActivity" />
-        <activity android:name=".Activity.MeizhiItemActivity" />
+        <activity android:name=".activity.CustomViewActivity" />
+        <activity android:name=".activity.ByclerViewActivity" />
+        <activity android:name=".activity.MenuActivity" />
+        <activity android:name=".activity.TranslateActivity" />
+        <activity android:name=".activity.MeizhiItemActivity" />
         <activity
-            android:name=".Activity.MatialDesignActivity"
+            android:name=".activity.MatialDesignActivity"
             android:theme="@style/Translucent" />
-        <activity android:name=".Activity.TransitionActivity" />
-        <activity android:name=".Activity.ScrollActivity" />
+        <activity android:name=".activity.TransitionActivity" />
+        <activity android:name=".activity.ScrollActivity" />
         <activity
-            android:name=".Activity.TransitionToActivity"
+            android:name=".activity.TransitionToActivity"
             android:theme="@style/Translucent" />
 
         <service
@@ -59,10 +57,11 @@
             android:enabled="true"
             android:exported="true"
             android:process=":remote" />
-        <service android:name=".service.MediaService"/>
+        <service android:name=".service.MediaService" />
 
-        <activity android:name=".Activity.AIDLActivity" />
-        <activity android:name=".Activity.MusicActivity"></activity>
+        <activity android:name=".activity.AIDLActivity" />
+        <activity android:name=".activity.MusicActivity" />
+        <activity android:name=".activity.PermissionActivity"></activity>
     </application>
 
 </manifest>

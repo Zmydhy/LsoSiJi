@@ -15,6 +15,32 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bind_start"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="bind开始" />
+
+        <Button
+            android:id="@+id/start_start"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="start开始" />
+        <Button
+            android:id="@+id/start_stop"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="start停止" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
             android:id="@+id/play_music"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -58,13 +84,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="当前进度：" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前进度：" />
+        <TextView
+            android:id="@+id/text1_music"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/text1_musics"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/text1_music"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 </LinearLayout>

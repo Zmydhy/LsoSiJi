@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.zmy.laosiji.Activity.TranslateActivity">
+    tools:context="com.zmy.laosiji.activity.TranslateActivity">
     <ScrollView
         android:id="@+id/scroll_transltes"
         android:layout_width="match_parent"

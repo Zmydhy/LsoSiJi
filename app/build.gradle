@@ -1,16 +1,22 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'  //这儿要添加
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    //当前项目编译版本
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
     defaultConfig {
         applicationId "com.zmy.laosiji"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled false
+    }
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
         release {
@@ -20,47 +26,67 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    //rxjava
-    //注解
-    //retrofit
-    //反序列化json工具
-    //使用Rxjava 转adapter
-    //okhttp3
-    //glide
-    //recyclerview的管理库
     compile('com.alibaba.android:vlayout:1.0.9@aar') {
         transitive = true
     }
-    // skin-support-design material design 控件支持[可选]
-    // skin-support-cardview CardView 控件支持[可选]
-    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
     compile('com.alibaba.android:vlayout:1.2.2@aar') {
         transitive = true
     }
-    compile 'com.android.support:appcompat-v7:25.+'
+    compile('com.android.support:appcompat-v7:27.0.2') {
+        exclude module: 'support-v4'
+    }
+    compile('com.android.support:support-v4:27.0.2') {
+        force = true
+    }
+    compile 'com.android.support:design:27.0.2'
+    compile 'com.android.support:cardview-v7:27.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:25.+'
-    compile "com.andkulikov:transitionseverywhere:1.6.9"
+    compile 'com.android.support:multidex:1.0.2'
+    testCompile 'junit:junit:4.12'
+
+    compile "com.andkulikov:transitionseverywhere:1.7.0"
+
     compile 'io.reactivex.rxjava2:rxjava:2.1.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.google.code.gson:gson:2.8.1'
+
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile 'com.android.support:cardview-v7:25.0.0-alpha1'
+    compile 'com.squareup.okio:okio:1.13.0'
+    //gilde
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    //gilde图片变换图
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+
     compile 'skin.support:skin-support:2.1.1'
     compile 'skin.support:skin-support-design:1.2.5'
     compile 'skin.support:skin-support-cardview:1.2.0'
     compile 'skin.support:skin-support-constraint-layout:1.0.2'
     compile 'com.jakewharton:butterknife:8.8.1'
-    testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+
+    // 引导蒙层
+    compile('com.github.huburt-Hu:NewbieGuide:v1.2.0') {
+        exclude group: 'com.android.support'
+    }
+    //权限管理
+    compile("com.github.hotchemi:permissionsdispatcher:3.1.0") {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:2.4.0"
+
+    compile 'android.arch.persistence.room:runtime:1.0.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+    compile 'android.arch.persistence.room:rxjava2:1.0.0'
+
 }
