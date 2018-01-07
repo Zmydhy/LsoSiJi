@@ -63,7 +63,9 @@
         <activity android:name=".moudle.activity.MusicActivity" />
         <activity android:name=".moudle.activity.PermissionActivity" />
         <activity android:name=".moudle.activity.SunLightActivity" />
-        <activity android:name=".tcp.SocketActivity"></activity>
+        <activity
+            android:name=".tcp.SocketActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

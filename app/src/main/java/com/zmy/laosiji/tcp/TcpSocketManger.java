@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.os.Message;
 
+import com.zmy.laosiji.rxhttp.RetrofitFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,7 +33,7 @@ import java.util.concurrent.Executors;
  * 　　　　┗┓┓┏━┳┓┏┛
  * 　　　　　┃┫┫　┃┫┫
  * 　　　　　┗┻┛　┗┻┛
- *
+ * <p>
  * 使用线程池实现socket的收发
  */
 
@@ -46,6 +48,7 @@ public class TcpSocketManger {
     private ExecutorService singleThreadPoolsend;
     // 回调
     private SocketRequest socketRequest;
+    private static TcpSocketManger tcpSocketManger;
 
     // 常量
     public final static int Conn_CreateSucs = 0x00;
@@ -124,10 +127,29 @@ public class TcpSocketManger {
     };
 
 
-    public TcpSocketManger() {
+    private TcpSocketManger() {
         this.singleThreadPool = Executors.newSingleThreadExecutor();
         this.singleThreadPoolsend = Executors.newSingleThreadExecutor();
         this.cachedThreadPool = Executors.newCachedThreadPool();
+    }
+
+    public static TcpSocketManger getInstance() {
+        if (tcpSocketManger == null) {
+            synchronized (RetrofitFactory.class) {
+                if (tcpSocketManger == null) {
+                    tcpSocketManger = new TcpSocketManger();
+                }
+            }
+        }
+        return tcpSocketManger;
+    }
+
+    public void setSocketRequest(SocketRequest socketRequest) {
+        if (this.socketRequest != null) {
+            this.socketRequest =null;
+        }
+        this.socketRequest = socketRequest;
+
     }
 
     /**
@@ -177,7 +199,7 @@ public class TcpSocketManger {
         Conntect_State = false;
     }
 
-    public void  antoClose(){
+    public void antoClose() {
         closeConnection();
         // 已从本地关闭连接
         handler.sendEmptyMessage(Conn_LocalClosed);
