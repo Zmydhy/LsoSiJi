@@ -46,12 +46,24 @@
                 android:layout_weight="1"
                 android:background="@color/gray"/>
         </LinearLayout>
-        <Button
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发送"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/btn_send"/>
+            android:orientation="vertical">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/btn_send"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文件上传"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/btn_sendfile"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

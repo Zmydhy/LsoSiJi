@@ -1,6 +1,8 @@
 package com.zmy.laosiji.tcp;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +27,9 @@ import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_SendFail;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_SendSucs;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_ServerClosed;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_TimeOut;
+import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_completeDown;
+import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_startDown;
+import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_startIng;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conntect_State;
 import static com.zmy.laosiji.tcp.TcpSocketManger.getInstance;
 
@@ -42,6 +47,7 @@ public class SocketActivity extends BaseActivity {
     TextView recivetextSocket;
     @BindView(R.id.btn_jiexi)
     Button btnJiexi;
+    private ProgressDialog dialog;
 
     SocketRequest socketRequest = new SocketRequest() {
         @Override
@@ -91,22 +97,55 @@ public class SocketActivity extends BaseActivity {
                     ConstantUtil.toast("接收失败");
                     ConstantUtil.log_e("接收失败");
                     break;
+
+                case Conn_startDown:
+                    dialog.show();
+                    break;
+                case Conn_completeDown:
+                    dialog.dismiss();
+                    break;
+
+                case Conn_startIng:
+                    ConstantUtil.log_e(Arrays.toString(obj));
+                    dialog.setProgress(35);
+                    break;
+
                 default:
                     break;
             }
         }
     };
 
+    //歌曲路径
+    private String filePath = Environment.getExternalStorageDirectory() + "/Music/a1.mp3";
 
     @Override
     protected void setContentView(Bundle savedInstanceState) {
         setContentLayout(R.layout.activity_socket);
         setTitle("socket测试");
         edSocket.setText("192.168.0.110:8888");
-        if(Conntect_State){
+        if (Conntect_State) {
             btnConnect.setText("已连接");
             getInstance().setSocketRequest(socketRequest);
         }
+        findViewById(R.id.btn_sendfile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    getInstance().sendFile(filePath);
+
+                    //添加弹出的对话框
+                    dialog = new ProgressDialog(SocketActivity.this);
+                    dialog.setTitle("提示");
+                    dialog.setMessage("正在下载图片，请稍后···");
+                    //将进度条设置为水平风格，让其能够显示具体的进度值
+                    dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    dialog.setCancelable(false); //用了这个方法之后，直到图片下载完成，进度条才会消失（即使在这之前点击了屏幕）
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -114,7 +153,7 @@ public class SocketActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_connect:
-                ConstantUtil.log_e("连接状态："+Conntect_State);
+                ConstantUtil.log_e("连接状态：" + Conntect_State);
                 if (Conntect_State) {
                     getInstance().antoClose();
                 } else {
@@ -123,11 +162,11 @@ public class SocketActivity extends BaseActivity {
 
                 break;
             case R.id.btn_send:
-                if(Conntect_State){
+                if (Conntect_State) {
                     byte[] ss = new byte[]{0x68, 0x72, 0x30, 0x66, 0x01, 0x00, 0x00, 0x68, 0x11, 0x04, 0x33, 0x33, 0x34, 0x33, (byte) 0xBB, 0x16};
                     getInstance().sendBytes(ss);
                     sendtextSocket.setText(Arrays.toString(ss));
-                }else{
+                } else {
                     ConstantUtil.toast("请先连接服务器");
                 }
 
@@ -138,4 +177,5 @@ public class SocketActivity extends BaseActivity {
                 break;
         }
     }
+
 }
