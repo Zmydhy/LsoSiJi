@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.zmy.laosiji.R;
-import com.zmy.laosiji.application.MyApplication;
+import com.zmy.laosiji.base.MyApplication;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -72,7 +72,8 @@ public class GildeUtil {
          */
         RequestOptions options = new RequestOptions()
                 .placeholder(R.mipmap.error_image)
-                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .override(200,100)
                 .transforms(new BlurTransformation());
         Glide.with(MyApplication.getContext())
                 .load(url)
@@ -101,4 +102,32 @@ public class GildeUtil {
                 .apply(options)
                 .into(imageView);
     }
+        // 下载图片到文件夹
+//    downloadImage("http://7xi8d6.com1.z0.glb.clouddn.com/20171219115747_tH0TN5_Screenshot.jpeg");
+//    public void downloadImage(String url) {
+//        //下载图
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    String url = "http://www.guolin.tech/book.png";
+//                    final Context context = getApplicationContext();
+//                    FutureTarget<File> target = Glide.with(context)
+//                            .asFile()
+//                            .load(url)
+//                            .submit();
+//                    final File imageFile = target.get();
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(context, imageFile.getPath(), Toast.LENGTH_LONG).show();
+//                            ConstantUtil.log_e(imageFile.getPath());
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//    }
 }

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.zmy.laosiji.R;
 
-import static com.zmy.laosiji.application.MyApplication.getContext;
+import static com.zmy.laosiji.base.MyApplication.getContext;
 
 /**
  * Created by Michael on 2017/11/23.

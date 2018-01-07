@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.zmy.laosiji.application.MyApplication;
-
 import java.util.List;
+
+import static com.zmy.laosiji.base.MyApplication.getContext;
 
 /**
  * @Description 处理UI的工具类
@@ -23,9 +23,6 @@ import java.util.List;
 
 public class UIUtils {
 
-    public static Context getContext() {
-        return MyApplication.getContext();
-    }
 
     /**
      * @Description 获取布局
