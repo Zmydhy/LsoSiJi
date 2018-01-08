@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zmy.laosiji.activity.BaseActivity">
+    tools:context=".moudle.activity.BaseActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/base_toolbar"

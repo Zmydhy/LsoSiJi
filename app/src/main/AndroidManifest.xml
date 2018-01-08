@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application
-        android:name=".application.MyApplication"
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/laosiji_icon"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".moudle.activity.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,38 +30,42 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.WorkSpaceActivity"
+            android:name=".moudle.activity.WorkSpaceActivity"
             android:theme="@style/AppTheme.toDarwer" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".moudle.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ThemeNightActivity"
+            android:name=".moudle.activity.ThemeNightActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.CustomViewActivity" />
-        <activity android:name=".activity.ByclerViewActivity" />
-        <activity android:name=".activity.MenuActivity" />
-        <activity android:name=".activity.TranslateActivity" />
-        <activity android:name=".activity.MeizhiItemActivity" />
+        <activity android:name=".moudle.activity.CustomViewActivity" />
+        <activity android:name=".moudle.activity.ByclerViewActivity" />
+        <activity android:name=".moudle.activity.MenuActivity" />
+        <activity android:name=".moudle.activity.TranslateActivity" />
+        <activity android:name=".moudle.activity.MeizhiItemActivity" />
         <activity
-            android:name=".activity.MatialDesignActivity"
+            android:name=".moudle.activity.MatialDesignActivity"
             android:theme="@style/Translucent" />
-        <activity android:name=".activity.TransitionActivity" />
-        <activity android:name=".activity.ScrollActivity" />
+        <activity android:name=".moudle.activity.TransitionActivity" />
+        <activity android:name=".moudle.activity.ScrollActivity" />
         <activity
-            android:name=".activity.TransitionToActivity"
+            android:name=".moudle.activity.TransitionToActivity"
             android:theme="@style/Translucent" />
 
         <service
-            android:name=".service.MyService"
+            android:name=".moudle.service.MyService"
             android:enabled="true"
             android:exported="true"
             android:process=":remote" />
-        <service android:name=".service.MediaService" />
+        <service android:name=".moudle.service.MediaService" />
 
-        <activity android:name=".activity.AIDLActivity" />
-        <activity android:name=".activity.MusicActivity" />
-        <activity android:name=".activity.PermissionActivity"></activity>
+        <activity android:name=".moudle.activity.AIDLActivity" />
+        <activity android:name=".moudle.activity.MusicActivity" />
+        <activity android:name=".moudle.activity.PermissionActivity" />
+        <activity android:name=".moudle.activity.SunLightActivity" />
+        <activity
+            android:name=".tcp.SocketActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>
