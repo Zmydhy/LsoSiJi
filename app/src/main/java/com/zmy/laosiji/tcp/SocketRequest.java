@@ -21,6 +21,6 @@ package com.zmy.laosiji.tcp;
  * 　　　　　┗┻┛　┗┻┛
  */
 
-public interface SocketRequest {
-    void result(int what, byte[] obj);
+public interface SocketRequest<T> {
+    void result(int what, T t);
 }

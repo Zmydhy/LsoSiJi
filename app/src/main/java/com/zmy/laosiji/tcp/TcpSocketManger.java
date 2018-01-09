@@ -83,7 +83,7 @@ public class TcpSocketManger {
         @Override
         public void handleMessage(Message msg) {
             if (socketRequest != null) {
-                socketRequest.result(msg.what, (byte[]) msg.obj);
+                socketRequest.result(msg.what, msg.obj);
             }
             super.handleMessage(msg);
         }
@@ -151,7 +151,7 @@ public class TcpSocketManger {
 
     public static TcpSocketManger getInstance() {
         if (tcpSocketManger == null) {
-            synchronized (RetrofitFactory.class) {
+            synchronized (TcpSocketManger.class) {
                 if (tcpSocketManger == null) {
                     tcpSocketManger = new TcpSocketManger();
                 }
@@ -171,9 +171,8 @@ public class TcpSocketManger {
     /**
      * 连接
      */
-    public void initConntect(String address, SocketRequest socketRequest) {
+    public void initConntect(String address) {
         this.address = address;
-        this.socketRequest = socketRequest;
         if (socket != null) {
             closeConnection();
         }
@@ -244,47 +243,6 @@ public class TcpSocketManger {
 
     public void sendFile(String filePath) throws Exception {
         new upTask().execute(filePath);
-//        singleThreadPoolsend.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    //获取本地文件
-//                    File file = new File(filePath);
-//                    if (file.exists()) {
-//                        fileInput = new FileInputStream(file);
-//                        dataInput = new DataInputStream(new BufferedInputStream(fileInput));
-//                        dataOut = new DataOutputStream(outputStream);
-//                        //获取文件名和长度
-//                        dataOut.writeUTF(file.getName());
-//                        dataOut.flush();
-//                        dataOut.writeLong((long) file.length());
-//                        dataOut.flush();
-//                        // 开始传输文件
-//                        ConstantUtil.log_e("-----开始传输文件------");
-//                        int bufferSize = 1024 * 8;
-//                        byte[] buf = new byte[bufferSize];
-//
-//                        int length = 0;
-//                        long progress = 0;
-//                        while ((length = dataInput.read(buf, 0, buf.length)) != -1) {
-//                            dataOut.write(buf, 0, length);
-//                            dataOut.flush();
-//                            progress += length;
-//                            handler.sendEmptyMessage(Conn_startDown);
-//                            ConstantUtil.log_e("| " + (100 * progress / file.length()) + "% |");
-//                        }
-//                        dataInput.close();
-//                        handler.sendEmptyMessage(Conn_completeDown);
-//                        ConstantUtil.log_e("-----发送完成------");
-//                    } else {
-//                        ConstantUtil.toast("文件不存在");
-//                    }
-//                } catch (Exception e) {
-//                    System.out.println(e.toString());
-//                }
-//            }
-//        });
-
     }
 
 
@@ -325,9 +283,8 @@ public class TcpSocketManger {
                     ConstantUtil.toast("文件不存在");
                 }
             } catch (Exception e) {
-                System.out.println(e.toString());
-            }
 
+            }
             return "null";
         }
 

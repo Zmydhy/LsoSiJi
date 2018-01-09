@@ -4,21 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".moudle.activity.PermissionActivity">
 
     <Button
         android:id="@+id/btn_getper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:layout_margin="20dp"
+        android:layout_margin="5dp"
+        android:background="@color/gray"
         android:text="获取权限" />
+
     <Button
         android:id="@+id/btn_angdou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:layout_margin="20dp"
+        android:layout_margin="5dp"
+        android:background="@color/gray"
         android:text="二次点击" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RxBus接收的数据："/>
+        <TextView
+            android:id="@+id/tv_persmion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
 
 </LinearLayout>

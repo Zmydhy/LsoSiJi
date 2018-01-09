@@ -48,6 +48,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_upload"
         app:fabSize="normal"
-        app:layout_behavior="com.zmy.laosiji.customview.ScrollAwareBehavior" />
+        app:layout_behavior="com.zmy.laosiji.widgets.ScrollAwareBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.zmy.laosiji.tcp;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,6 +18,8 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_CreateFail;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_CreateSucs;
@@ -32,7 +35,7 @@ import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_startDown;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_startIng;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conntect_State;
 import static com.zmy.laosiji.tcp.TcpSocketManger.getInstance;
-
+@RuntimePermissions
 public class SocketActivity extends BaseActivity {
 
     @BindView(R.id.ed_socket)
@@ -49,34 +52,43 @@ public class SocketActivity extends BaseActivity {
     Button btnJiexi;
     private ProgressDialog dialog;
 
-    SocketRequest socketRequest = new SocketRequest() {
+    SocketRequest socketRequest = new SocketRequest<Object>() {
         @Override
-        public void result(int what, byte[] obj) {
+        public void result(int what, Object obj) {
             switch (what) {
                 case Conn_CreateSucs:
                     ConstantUtil.toast("连接成功");
                     ConstantUtil.log_e("连接成功");
                     btnConnect.setText("已连接");
+                    btnConnect.setClickable(true);
+                    btnConnect.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case Conn_TimeOut:
                     ConstantUtil.toast("连接超时");
                     ConstantUtil.log_e("连接超时");
-                    ConstantUtil.log_e("失败");
+                    ConstantUtil.log_e("超时");
+                    btnConnect.setClickable(true);
+                    btnConnect.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case Conn_CreateFail:
                     ConstantUtil.toast("连接失败");
                     ConstantUtil.log_e("连接失败");
                     btnConnect.setText("失败");
+                    btnConnect.setClickable(true);
+                    btnConnect.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case Conn_ServerClosed:
                     ConstantUtil.toast("服务器关闭连接");
                     ConstantUtil.log_e("服务器关闭连接");
                     btnConnect.setText("已断开");
+                    btnConnect.setClickable(true);
+                    btnConnect.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case Conn_LocalClosed:
                     ConstantUtil.toast("本地关闭连接");
                     ConstantUtil.log_e("本地关闭连接");
                     btnConnect.setText("已断开");
+                    btnConnect.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case Conn_SendSucs:
                     ConstantUtil.toast("发送成功");
@@ -87,8 +99,8 @@ public class SocketActivity extends BaseActivity {
                     ConstantUtil.log_e("发送失败");
                     break;
                 case Conn_ReceiveSucs:
-                    if (!TextUtils.isEmpty(Arrays.toString(obj))) {
-                        recivetextSocket.setText(Arrays.toString(obj));
+                    if (!TextUtils.isEmpty(Arrays.toString((byte[])obj))) {
+                        recivetextSocket.setText(Arrays.toString((byte[]) obj));
                     }
                     ConstantUtil.toast("接收成功");
                     ConstantUtil.log_e("接收成功");
@@ -106,8 +118,8 @@ public class SocketActivity extends BaseActivity {
                     break;
 
                 case Conn_startIng:
-                    ConstantUtil.log_e(Arrays.toString(obj));
-                    dialog.setProgress(35);
+                    ConstantUtil.log_e(Arrays.toString(new Integer[]{(Integer) obj}));
+                    dialog.setProgress(((Integer) obj).intValue());
                     break;
 
                 default:
@@ -126,21 +138,14 @@ public class SocketActivity extends BaseActivity {
         edSocket.setText("192.168.0.110:8888");
         if (Conntect_State) {
             btnConnect.setText("已连接");
-            getInstance().setSocketRequest(socketRequest);
         }
+        getInstance().setSocketRequest(socketRequest);
         findViewById(R.id.btn_sendfile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
+                    setUpDialog();
                     getInstance().sendFile(filePath);
-
-                    //添加弹出的对话框
-                    dialog = new ProgressDialog(SocketActivity.this);
-                    dialog.setTitle("提示");
-                    dialog.setMessage("正在下载图片，请稍后···");
-                    //将进度条设置为水平风格，让其能够显示具体的进度值
-                    dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    dialog.setCancelable(false); //用了这个方法之后，直到图片下载完成，进度条才会消失（即使在这之前点击了屏幕）
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -153,11 +158,14 @@ public class SocketActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_connect:
-                ConstantUtil.log_e("连接状态：" + Conntect_State);
                 if (Conntect_State) {
                     getInstance().antoClose();
                 } else {
-                    getInstance().initConntect(edSocket.getText().toString(), socketRequest);
+                    btnConnect.setText("连接中");
+                    btnConnect.setTextColor(getResources().getColor(R.color.item_border_color));
+                    btnConnect.setClickable(false);
+                    getInstance().initConntect(edSocket.getText().toString());
+
                 }
 
                 break;
@@ -176,6 +184,20 @@ public class SocketActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    private void setUpDialog(){
+        //添加弹出的对话框
+        dialog = new ProgressDialog(SocketActivity.this);
+        dialog.setTitle("提示");
+        dialog.setMessage("正在上传文件，请稍后···");
+        //将进度条设置为水平风格，让其能够显示具体的进度值
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setCancelable(false); //用了这个方法之后，直到图片下载完成，进度条才会消失（即使在这之前点击了屏幕）
+    }
+     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showPermsion(){
+
     }
 
 }

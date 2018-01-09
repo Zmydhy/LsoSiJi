@@ -41,6 +41,7 @@ import com.zmy.laosiji.rxhttp.HttpOnNextListener;
 import com.zmy.laosiji.rxhttp.RxScheduleMapper;
 import com.zmy.laosiji.tcp.SocketActivity;
 import com.zmy.laosiji.utils.ConstantUtil;
+import com.zmy.laosiji.utils.animatorutils.AnimatorPath;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,12 +111,12 @@ public class WorkSpaceActivity extends AppCompatActivity
     }
 
     private void initDatas() {
-//        HttpAPi.postLogIn(new HttpOnNextListener<LoginEntiny>() {
-//            @Override
-//            public void onNext(LoginEntiny LoginEntiny) {
-//                ConstantUtil.log_e("用户："+LoginEntiny.getData().getUser().getUsername());
-//            }
-//        });
+//        动画框架的使用
+//        AnimatorPath animatorPath  = new AnimatorPath();
+//        animatorPath.moveto(0,0);
+//        animatorPath.cubto(200,400,400,-400,600,0);
+//        animatorPath.lineto(0,0);
+//        animatorPath.startAnimator(view);
 
         TestDataBase db = Room.databaseBuilder(getApplicationContext(), TestDataBase.class, "database-name").build();
         dao = db.testDao();

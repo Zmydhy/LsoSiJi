@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.zmy.laosiji.R;
 import com.zmy.laosiji.base.BaseActivity;
+import com.zmy.laosiji.rxhttp.RxBus;
 import com.zmy.laosiji.utils.ConstantUtil;
 
 import butterknife.BindView;
@@ -54,7 +55,7 @@ public class MenuActivity extends BaseActivity {
         slide.excludeTarget(R.id.toolbar, true);
         getWindow().setExitTransition(slide);
     }
-    @OnClick({R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5, R.id.text6, R.id.text7, R.id.text8, R.id.text9, R.id.text10})
+    @OnClick({R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5, R.id.text6, R.id.text7, R.id.text8, R.id.text9, R.id.text10 ,R.id.text11,R.id.text12,R.id.text13,R.id.text14,R.id.text15})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text1:
@@ -86,6 +87,24 @@ public class MenuActivity extends BaseActivity {
                 startActivitys(PermissionActivity.class);
                 break;
             case R.id.text10:
+                startActivitys(SunLightActivity.class);
+                break;
+            case R.id.text11:
+                RxBus.getRxBusBehavior().post("ddddddddd");
+                RxBus.getRxBusBehavior().post("fffffffff");
+                RxBus.getRxBusBehavior().post("eeeeeeeeee");
+                startActivitys(PermissionActivity.class);
+                break;
+            case R.id.text12:
+                startActivitys(SunLightActivity.class);
+                break;
+            case R.id.text13:
+                startActivitys(SunLightActivity.class);
+                break;
+            case R.id.text14:
+                startActivitys(SunLightActivity.class);
+                break;
+            case R.id.text15:
                 startActivitys(SunLightActivity.class);
                 break;
             default:
