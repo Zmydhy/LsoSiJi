@@ -97,7 +97,7 @@
             android:background="@color/gray"/>
         <TextView
             android:id="@+id/text12"
-            android:text="暂未开发"
+            android:text="Dialog集合"
             style="@style/MenuActivitytext"/>
         <View
             android:layout_width="match_parent"

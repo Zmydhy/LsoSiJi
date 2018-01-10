@@ -125,6 +125,20 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         baseFrame.addView(contentView, params);
         ButterKnife.bind(this,contentView);
     }
+    /**
+     * 设置toolbar下面内容区域的内容
+     *
+     * @param layoutId
+     */
+    public void setContentView(int layoutId,String title) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(layoutId, null);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        baseFrame.addView(contentView, params);
+        ButterKnife.bind(this,contentView);
+        toolbarBaseTitle.setText(title);
+    }
 
     /**
      * 设置标题

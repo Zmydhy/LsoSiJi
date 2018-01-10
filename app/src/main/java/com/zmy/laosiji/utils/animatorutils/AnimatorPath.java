@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2018/1/4.
+ * 动画基础库
  */
 
 public class AnimatorPath {

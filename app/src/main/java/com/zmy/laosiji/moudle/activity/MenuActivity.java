@@ -39,8 +39,7 @@ public class MenuActivity extends BaseActivity {
 
     @Override
     protected void setContentView(Bundle savedInstanceState) {
-        setContentLayout(R.layout.activity_menu);
-        setTitle("Menu菜单");
+        setContentView(R.layout.activity_menu,"Menu菜单");
         getWindow().setEnterTransition(new android.transition.Slide(Gravity.RIGHT));
         setupTransition();
         setToolBarMenuOnclick(onMenuItemClick);
@@ -96,16 +95,13 @@ public class MenuActivity extends BaseActivity {
                 startActivitys(PermissionActivity.class);
                 break;
             case R.id.text12:
-                startActivitys(SunLightActivity.class);
+                startActivitys(DialogActivity.class);
                 break;
             case R.id.text13:
-                startActivitys(SunLightActivity.class);
                 break;
             case R.id.text14:
-                startActivitys(SunLightActivity.class);
                 break;
             case R.id.text15:
-                startActivitys(SunLightActivity.class);
                 break;
             default:
                 break;

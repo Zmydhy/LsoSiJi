@@ -17,6 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.zmy.laosiji.base.MyApplication.getContext;
+
 /**
  * Created by Michael on 2017/11/30.
  * 　　　┏┓　　　┏┓
@@ -66,11 +68,10 @@ public class MeizhiItemActivity extends AppCompatActivity {
 
     @OnClick(R.id.img_meizhi_item)
     public void onViewClicked() {
-        Glide.get(this).clearMemory();
+        Glide.get(getContext()).clearMemory();
         System.gc();
         //翻转过度
         supportFinishAfterTransition();
     }
-
 
 }

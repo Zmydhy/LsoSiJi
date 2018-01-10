@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.Window;
 
 import com.zmy.laosiji.R;
+import com.zmy.laosiji.utils.ConstantUtil;
 
 import io.reactivex.disposables.Disposable;
 
@@ -31,14 +32,20 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class HttpOnNextListener<T> {
     private Context mContext;
-    public HttpOnNextListener(Context mContext){
+    private Disposable disposable;
+
+    public HttpOnNextListener(Context mContext) {
         this.mContext = mContext;
     }
-    public HttpOnNextListener(){
+
+    public HttpOnNextListener() {
     }
+
     private Dialog mProgressDialog;
+
     /**
      * 成功后回调方法
+     *
      * @param t
      */
     public abstract void onNext(T t);
@@ -46,8 +53,9 @@ public abstract class HttpOnNextListener<T> {
     /**
      * 緩存回調結果
      */
-    public void onStart(Disposable d){
-        if(mContext != null){
+    public void onStart(Disposable d) {
+        disposable = d;
+        if (mContext != null) {
             showProgressDialog();
         }
 
@@ -56,10 +64,11 @@ public abstract class HttpOnNextListener<T> {
     /**
      * 失败或者错误方法
      * 主动调用，更加灵活
+     *
      * @param e
      */
-    public  void onError(Throwable e){
-        if(mContext != null){
+    public void onError(Throwable e) {
+        if (mContext != null) {
             dismissProgressDialog();
         }
     }
@@ -67,8 +76,8 @@ public abstract class HttpOnNextListener<T> {
     /**
      * 取消回調
      */
-    public void onComplete(){
-        if(mContext != null){
+    public void onComplete() {
+        if (mContext != null) {
             dismissProgressDialog();
         }
     }
@@ -92,6 +101,13 @@ public abstract class HttpOnNextListener<T> {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+    }
+
+    public Disposable getDisposable() {
+        if(disposable != null){
+            return  disposable;
+        }
+        return null;
     }
 }
 
