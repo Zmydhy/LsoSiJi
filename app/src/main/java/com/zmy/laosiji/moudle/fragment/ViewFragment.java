@@ -43,5 +43,12 @@ public class ViewFragment extends BaseFragment {
         });
     }
 
-
+    /**
+     * 取消动画，减少内存泄露
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        fragmentCiecle.setCancelAnimation();
+    }
 }

@@ -1,7 +1,10 @@
 package com.zmy.laosiji.rxhttp;
 
+import com.zmy.laosiji.base.MyApplication;
 import com.zmy.laosiji.moudle.entity.LoginEntiny;
 import com.zmy.laosiji.moudle.entity.MeizhiEntity;
+import com.zmy.laosiji.utils.ConstantUtil;
+import com.zmy.laosiji.utils.NetStateUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +69,12 @@ public class HttpAPi {
      * @param <T>
      */
     private static<T> void  goHttp(Observable<T> observable, final HttpOnNextListener mHttpOnNextListener){
-        observable.compose(RxScheduleMapper.<T>io2main()).subscribe(createObserver(mHttpOnNextListener));
+        if(!NetStateUtils.isNetworkConnected(MyApplication.getContext())){
+            ConstantUtil.toast("老司机开车，去联网不迷路！");
+        }else {
+            observable.compose(RxScheduleMapper.<T>io2main()).subscribe(createHttpObserver(mHttpOnNextListener));
+        }
+
     }
 
 
@@ -98,6 +106,35 @@ public class HttpAPi {
      * @return
      */
     public static<T> Observer<T> createObserver(final HttpOnNextListener mHttpOnNextListener){
+        return new Observer<T>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mHttpOnNextListener.onStart(d);
+            }
+
+            @Override
+            public void onNext(T t) {
+                mHttpOnNextListener.onNext(t);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mHttpOnNextListener.onError(e);
+            }
+
+            @Override
+            public void onComplete() {
+                mHttpOnNextListener.onComplete();
+            }
+        };
+    }
+    /**
+     * 创建访问网络的观察者，判断网络是否连接
+     * @param mHttpOnNextListener
+     * @param <T>
+     * @return
+     */
+    public static<T> Observer<T> createHttpObserver(final HttpOnNextListener mHttpOnNextListener){
         return new Observer<T>() {
             @Override
             public void onSubscribe(Disposable d) {

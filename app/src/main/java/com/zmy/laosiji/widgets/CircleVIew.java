@@ -61,6 +61,8 @@ public class CircleVIew extends View {
 
     private Path linnersquarepath;
     private Path outersquarepath;
+    private AnimatorSet animatorSet;
+    private  ValueAnimator valueAnimators;
 
     public CircleVIew(Context context) {
         this(context, null);
@@ -167,7 +169,6 @@ public class CircleVIew extends View {
         }
         if (sweepAngles == 360 && animatorValue == 0) {
             canvas.drawCircle(x, y, RADIUS, caiPaint);
-            ConstantUtil.log_e("xRaidus:" + xRadius);
             canvas.drawCircle(x, y, xRadius, baiPaint);
         }
         if (xRadius == 0) {
@@ -231,7 +232,7 @@ public class CircleVIew extends View {
         });
         valueAnimator.setDuration(1000);
 
-        final ValueAnimator valueAnimators = ValueAnimator.ofFloat(0, 1);
+        valueAnimators = ValueAnimator.ofFloat(0, 1);
         valueAnimators.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -239,15 +240,27 @@ public class CircleVIew extends View {
                 invalidate();
             }
         });
-        valueAnimators.setRepeatCount(100);
+        valueAnimators.setRepeatCount(-1);
         valueAnimators.setDuration(1000);
         valueAnimator.setInterpolator(new FastOutSlowInInterpolator());
-        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet = new AnimatorSet();
         animatorSet.playSequentially(huanAnimator, xiaoAnimator,valueAnimator);
         animatorSet.play(valueAnimator).with(valueAnimators);
         animatorSet.start();
 
+
     }
 
 
+    public void setCancelAnimation() {
+        if(valueAnimators != null){
+            valueAnimators.cancel();
+            ConstantUtil.log_e("置空animation");
+        }
+        if(animatorSet != null){
+            animatorSet.cancel();
+            ConstantUtil.log_e("置空animationSet");
+        }
+
+    }
 }

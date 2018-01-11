@@ -24,6 +24,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.hubert.library.HighLight;
 import com.app.hubert.library.NewbieGuide;
@@ -40,8 +41,14 @@ import com.zmy.laosiji.rxhttp.HttpAPi;
 import com.zmy.laosiji.rxhttp.HttpOnNextListener;
 import com.zmy.laosiji.rxhttp.RxScheduleMapper;
 import com.zmy.laosiji.tcp.SocketActivity;
+import com.zmy.laosiji.utils.Constant;
 import com.zmy.laosiji.utils.ConstantUtil;
+import com.zmy.laosiji.utils.NetStateUtils;
 import com.zmy.laosiji.utils.animatorutils.AnimatorPath;
+import com.zmy.laosiji.widgets.tdialog.TDialog;
+import com.zmy.laosiji.widgets.tdialog.base.BindViewHolder;
+import com.zmy.laosiji.widgets.tdialog.listener.OnBindViewListener;
+import com.zmy.laosiji.widgets.tdialog.listener.OnViewClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +57,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.ObservableEmitter;
+
+import static com.zmy.laosiji.base.MyApplication.getContext;
+
 public class WorkSpaceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.recycler_view_work)
@@ -111,17 +121,44 @@ public class WorkSpaceActivity extends AppCompatActivity
     }
 
     private void initDatas() {
-//        动画框架的使用
-//        AnimatorPath animatorPath  = new AnimatorPath();
-//        animatorPath.moveto(0,0);
-//        animatorPath.cubto(200,400,400,-400,600,0);
-//        animatorPath.lineto(0,0);
-//        animatorPath.startAnimator(view);
-
         TestDataBase db = Room.databaseBuilder(getApplicationContext(), TestDataBase.class, "database-name").build();
         dao = db.testDao();
-        setCache();
-        getCacheList();
+        if(NetStateUtils.isNetworkConnected(getContext())){
+            setCache();
+            getCacheList();
+        }else {
+            getCacheList();
+            new TDialog.Builder(getSupportFragmentManager())
+                    .setLayoutRes(R.layout.dialog_vb_convert)
+                    .setScreenWidthAspect(this, 0.85f)
+                    .setCancelOutside(false)
+                    .setOnBindViewListener(new OnBindViewListener() {
+                        @Override
+                        public void bindView(BindViewHolder bindViewHolder) {
+                            bindViewHolder.setText(R.id.textView1, "老司机开车" );
+                            bindViewHolder.setText(R.id.tv_jiuyuan_content, "连网都没有，开什么车...");
+                            bindViewHolder.setText(R.id.tv_jiuyuan_desc, "快去连网吧");
+                        }
+                    })
+                    .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm)
+                    .setOnViewClickListener(new OnViewClickListener() {
+                        @Override
+                        public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+                            switch (view.getId()) {
+                                case R.id.tv_cancel:
+                                    tDialog.dismiss();
+                                    break;
+                                case R.id.tv_confirm:
+                                    ConstantUtil.toast("去联网喽！");
+                                    tDialog.dismiss();
+                                    break;
+                            }
+                        }
+                    })
+                    .create()
+                    .show();
+        }
+
     }
 
     /**
@@ -152,6 +189,7 @@ public class WorkSpaceActivity extends AppCompatActivity
                     public void onNext(String s) {
                         ConstantUtil.log_e(s);
                         ConstantUtil.log_e("插入数据成功");
+                        getCacheList();
                     }
                 }));
             }

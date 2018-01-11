@@ -36,7 +36,7 @@ public class FileUtils {
      * @return
      */
     public static String getSDCardPath() {
-        SDPATH = Environment.getExternalStorageDirectory() +"/PonyMusic/";
+        SDPATH = Environment.getExternalStorageDirectory() +"/LaoSiJi/";
         return SDPATH;
     }
 
