@@ -15,7 +15,7 @@ import android.view.View;
 
 import com.zmy.laosiji.R;
 import com.zmy.laosiji.utils.ConstantUtil;
-import com.zmy.laosiji.utils.MiscUtil;
+import com.zmy.laosiji.utils.MeasurecUtils;
 
 /**
  * Created by Michael on 2017/10/24.
@@ -149,7 +149,7 @@ public class CircleVIew extends View {
 
         linePaint = new Paint();
         linePaint.setColor(getResources().getColor(R.color.white));
-        linePaint.setStrokeWidth(MiscUtil.dipToPx(getContext(), 2));
+        linePaint.setStrokeWidth(MeasurecUtils.dipToPx(getContext(), 2));
         linePaint.setStyle(Paint.Style.STROKE);
         linePaint.setAntiAlias(true);
     }

@@ -123,7 +123,7 @@ public class WorkSpaceActivity extends AppCompatActivity
     private void initDatas() {
         TestDataBase db = Room.databaseBuilder(getApplicationContext(), TestDataBase.class, "database-name").build();
         dao = db.testDao();
-        if(NetStateUtils.isNetworkConnected(getContext())){
+        if(NetStateUtils.isNetworkConnect(getContext())){
             setCache();
             getCacheList();
         }else {

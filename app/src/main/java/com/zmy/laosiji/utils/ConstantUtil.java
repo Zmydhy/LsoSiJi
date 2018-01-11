@@ -9,9 +9,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zmy.laosiji.BuildConfig;
 import com.zmy.laosiji.R;
 
 import static com.zmy.laosiji.base.MyApplication.getContext;
+import static com.zmy.laosiji.utils.MUtils.className;
+import static com.zmy.laosiji.utils.MUtils.getMethodNames;
+import static com.zmy.laosiji.utils.MUtils.lineNumber;
+import static com.zmy.laosiji.utils.MUtils.methodName;
 
 /**
  * Created by Michael on 2017/11/23.
@@ -32,6 +37,15 @@ import static com.zmy.laosiji.base.MyApplication.getContext;
  * 　　　　┗┓┓┏━┳┓┏┛
  * 　　　　　┃┫┫　┃┫┫
  * 　　　　　┗┻┛　┗┻┛
+ *
+ * 1、
+ *      Toast工具类
+ * 2、
+ *      Log_I
+ * 3、
+ *      log_E
+ * 4、
+ *      createLog
  */
 
 public class ConstantUtil {
@@ -63,9 +77,6 @@ public class ConstantUtil {
         toast.show();
     }
 
-    static String className;
-    static String methodName;
-    static int lineNumber;
 
     public static void log_e(String message) {
         if (!isDebuggable()) {
@@ -88,7 +99,7 @@ public class ConstantUtil {
     }
 
     public static boolean isDebuggable() {
-        return com.zmy.laosiji.BuildConfig.DEBUG;
+        return BuildConfig.DEBUG;
     }
 
     private static String createLog(String log) {
@@ -99,10 +110,6 @@ public class ConstantUtil {
         return buffer.toString();
     }
 
-    private static void getMethodNames(StackTraceElement[] sElements) {
-        className = sElements[1].getFileName();
-        methodName = sElements[1].getMethodName();
-        lineNumber = sElements[1].getLineNumber();
-    }
+
 
 }

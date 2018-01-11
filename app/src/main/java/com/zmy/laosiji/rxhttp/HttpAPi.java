@@ -69,7 +69,7 @@ public class HttpAPi {
      * @param <T>
      */
     private static<T> void  goHttp(Observable<T> observable, final HttpOnNextListener mHttpOnNextListener){
-        if(!NetStateUtils.isNetworkConnected(MyApplication.getContext())){
+        if(!NetStateUtils.isNetworkConnect(MyApplication.getContext())){
             ConstantUtil.toast("老司机开车，去联网不迷路！");
         }else {
             observable.compose(RxScheduleMapper.<T>io2main()).subscribe(createHttpObserver(mHttpOnNextListener));

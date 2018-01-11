@@ -29,25 +29,41 @@ import java.io.IOException;
 
 public class FileUtils {
     private static String SDPATH = "";
+    /**
+     * @Description:判断sd卡是否存在
+     * @modified by @time
+     */
+    public static boolean isSDCardExist() {
+        return Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED);
+    }
+    /**
+     * @Description:获取sd卡路径+apkName
+     *            apk名称
+     * @modified by @time
+     */
+    public static String getSDCardPath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath();
+    }
 
     /**
-     * 获取到sd卡的根目录，并以String形式返回
+     * 获取项目路径
      *
      * @return
      */
-    public static String getSDCardPath() {
+    public static String getProJectPath() {
         SDPATH = Environment.getExternalStorageDirectory() +"/LaoSiJi/";
         return SDPATH;
     }
 
     /**
-     * 创建文件或文件夹
+     * 在项目文件夹创建文件或文件夹
      *
      * @param fileName
      *            文件名或问文件夹名
      */
     public static void createFile(String fileName) {
-        File file = new File(getSDCardPath() + fileName);
+        File file = new File(getProJectPath() + fileName);
         if (fileName.indexOf(".") != -1) {
             // 说明包含，即使创建文件, 返回值为-1就说明不包含.,即使文件
             try {
@@ -59,14 +75,41 @@ public class FileUtils {
             System.out.println("创建了文件");
         } else {
             // 创建文件夹
-            file.mkdir();
+            file.mkdirs();
             System.out.println("创建了文件夹");
         }
 
     }
-    private static final String TAG = "FileUtils";
 
-    public static void getEnvironmentDirectories() {
+    /**
+     * 删除文件夹下所有文件
+     * @param root
+     */
+    public static void deleteAllFiles(File root) {
+        File files[] = root.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                if (f.isDirectory()) { // 判断是否为文件夹
+                    deleteAllFiles(f);
+                    try {
+                        f.delete();
+                    } catch (Exception e) {
+                    }
+                } else {
+                    if (f.exists()) { // 判断是否存在
+                        deleteAllFiles(f);
+                        try {
+                            f.delete();
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public  void getEnvironmentDirectories() {
         //:/system
         String rootDir = Environment.getRootDirectory().toString();
         System.out.println("Environment.getRootDirectory()=:" + rootDir);
@@ -99,7 +142,7 @@ public class FileUtils {
         System.out.println("Environment.isExternalStorageRemovable()=:" + isRemovable);
     }
 
-    public static void getApplicationDirectories(Context context) {
+    public  void getApplicationDirectories(Context context) {
 
         //获取当前程序路径 应用在内存上的目录 :/data/data/com.mufeng.toolproject/files
         String filesDir = context.getFilesDir().toString();
