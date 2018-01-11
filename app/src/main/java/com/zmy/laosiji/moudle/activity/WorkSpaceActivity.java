@@ -102,10 +102,10 @@ public class WorkSpaceActivity extends AppCompatActivity
                 .setLayoutRes(R.layout.view_guide_custom)//自定义的提示layout，不要添加背景色，引导层背景色通过setBackgroundColor()设置
                 .setBackgroundColor(getResources().getColor(R.color.transltes))//设置背景色，建议使用有透明度的颜色
                 .fullScreen(true)
-                .asPage()//只有一页或者最后一页可以省略
-                .addHighLight(toolbarWork, HighLight.Type.RECTANGLE)
-                .setLayoutRes(R.layout.view_guide_custom)//引导页布局，点击跳转下一页或者消失引导层的空间id
-                .fullScreen(true)//是否全屏，即是否包含状态栏，默认false，设置为true需要Activity设置为全屏或者沉浸式状态栏
+//                .asPage()//只有一页或者最后一页可以省略
+//                .addHighLight(toolbarWork, HighLight.Type.RECTANGLE)
+//                .setLayoutRes(R.layout.view_guide_custom)//引导页布局，点击跳转下一页或者消失引导层的空间id
+//                .fullScreen(true)//是否全屏，即是否包含状态栏，默认false，设置为true需要Activity设置为全屏或者沉浸式状态栏
                 .show();//显示引导层
 
     }
