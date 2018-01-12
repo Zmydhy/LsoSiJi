@@ -24,11 +24,116 @@ import java.util.Enumeration;
 
 /**
  * Created by Administrator on 2018/1/11.
+ *  1、
+ *           isNetworkEnabled 判断Network是否开启(包括移动网络和wifi)
+ * 2、
+ *          isNetworkConnect 判断Network是否连接成功(包括移动网络和wifi)
+ * 3、
+ *          is3G 判断当前网络是否是移动网络
+ *          isWifi 判断当前网络是否是wifi网络
+ * 4、
+ *          判断GPS是否打开
+ * 5、
+ *           获取本机imei
+ * 6、
+ *           ping外部网络是否连接
+ * 7、
+ *          判断当前网络类型
+ *  8、
+ *          获得本机ip地址
  */
 
 public class NetStateUtils {
+
     /**
-     * 判断当前网络是否是移动网络
+     * isNetworkEnabled 判断Network是否开启(包括移动网络和wifi)
+     *
+     * @return
+     */
+    public static boolean isNetworkEnabled(Context mContext) {
+        return (isNetEnabled(mContext) || isWIFIEnabled(mContext));
+    }
+
+    /**
+     * 判断移动网络是否开启
+     *
+     * @return
+     */
+    public static boolean isNetEnabled(Context context) {
+        boolean enable = false;
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            if (telephonyManager.getNetworkType() != TelephonyManager.NETWORK_TYPE_UNKNOWN) {
+                enable = true;
+                Log.i(Thread.currentThread().getName(), "isNetEnabled");
+            }
+        }
+
+        return enable;
+    }
+
+    /**
+     * 判断wifi是否开启
+     */
+    public static boolean isWIFIEnabled(Context context) {
+        boolean enable = false;
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager.isWifiEnabled()) {
+            enable = true;
+            Log.i(Thread.currentThread().getName(), "isWifiEnabled");
+        }
+
+        Log.i(Thread.currentThread().getName(), "isWifiDisabled");
+        return enable;
+    }
+
+    /**
+     * isNetworkConnect 判断Network是否连接成功(包括移动网络和wifi)
+     * 一般用这个
+     *
+     * @return
+     */
+    public static boolean isNetworkConnect(Context mContext) {
+        return (isWifiContected(mContext) || isNetContected(mContext));
+    }
+
+
+
+    /**
+     * 判断移动网络是否连接成功！
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isNetContected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);//移动网络
+        if (mobileNetworkInfo.isConnected()) {
+            return true;
+        }
+        return false;
+
+    }
+
+    /**
+     * 判断wifi是否连接成功
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isWifiContected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiNetworkInfo.isConnected()) {
+            return true;
+        }
+        return false;
+
+    }
+    /**
+     * is3G 判断当前网络是否是移动网络
      *
      * @param context
      * @return boolean
@@ -45,7 +150,7 @@ public class NetStateUtils {
     }
 
     /**
-     * 判断当前网络是否是wifi网络
+     * isWifi 判断当前网络是否是wifi网络
      *
      * @param context
      * @return boolean
@@ -299,91 +404,5 @@ public class NetStateUtils {
         return false;
     }
 
-    /**
-     * 判断Network是否开启(包括移动网络和wifi)
-     *
-     * @return
-     */
-    public static boolean isNetworkEnabled(Context mContext) {
-        return (isNetEnabled(mContext) || isWIFIEnabled(mContext));
-    }
 
-    /**
-     * 判断移动网络是否开启
-     *
-     * @return
-     */
-    public static boolean isNetEnabled(Context context) {
-        boolean enable = false;
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null) {
-            if (telephonyManager.getNetworkType() != TelephonyManager.NETWORK_TYPE_UNKNOWN) {
-                enable = true;
-                Log.i(Thread.currentThread().getName(), "isNetEnabled");
-            }
-        }
-
-        return enable;
-    }
-
-    /**
-     * 判断wifi是否开启
-     */
-    public static boolean isWIFIEnabled(Context context) {
-        boolean enable = false;
-        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        if (wifiManager.isWifiEnabled()) {
-            enable = true;
-            Log.i(Thread.currentThread().getName(), "isWifiEnabled");
-        }
-
-        Log.i(Thread.currentThread().getName(), "isWifiDisabled");
-        return enable;
-    }
-
-    /**
-     * 判断Network是否连接成功(包括移动网络和wifi)
-     * 一般用这个
-     *
-     * @return
-     */
-    public static boolean isNetworkConnect(Context mContext) {
-        return (isWifiContected(mContext) || isNetContected(mContext));
-    }
-
-
-
-    /**
-     * 判断移动网络是否连接成功！
-     *
-     * @param context
-     * @return
-     */
-    public static boolean isNetContected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mobileNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);//移动网络
-        if (mobileNetworkInfo.isConnected()) {
-            return true;
-        }
-        return false;
-
-    }
-
-    /**
-     * 判断wifi是否连接成功
-     *
-     * @param context
-     * @return
-     */
-    public static boolean isWifiContected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiNetworkInfo.isConnected()) {
-            return true;
-        }
-        return false;
-
-    }
 }

@@ -7,13 +7,16 @@ import android.widget.Toast;
 
 /**
  * Created by Zmy on 2015-10-10.
- * Project: CarWin2.0.
+ *
+ *
+ * 两种方式
+ *
+ * 可以设置 int  long float  boolean string   string（加解密）
  */
 public class SharePreferenceUtils {
     private static SharedPreferences mSharedPreferences;
 
     // 方式1
-
     /**
      * 添加Int类型
      *
@@ -21,10 +24,9 @@ public class SharePreferenceUtils {
      * @param key
      * @param value
      */
-    public static void setCustomSharedInt(Context context, String name,
-                                          String key, int value) {
+    public static void setInt(Context context, String name, String key, int value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(name,
-                Context.MODE_PRIVATE);//操作模式为本程序
+                Context.MODE_PRIVATE);
         sharedPreferences.edit().putInt(key, value).commit();
     }
 
@@ -42,25 +44,6 @@ public class SharePreferenceUtils {
                 Context.MODE_PRIVATE);
         return sharedPreferences.getInt(key, defaultValue);
     }
-
-
-
-
-    /**
-     * 获取Boolean类型
-     *
-     * @param context
-     * @param key
-     * @return
-     */
-    public static Boolean getBoolean(Context context, String name, String key,
-                                     boolean defaultValue) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(name,
-                Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(key, defaultValue);
-    }
-
-
     /**
      * 添加String类型
      *
@@ -76,22 +59,17 @@ public class SharePreferenceUtils {
     }
 
     /**
-     * 添加String类型
+     * 获取Boolean类型
      *
      * @param context
      * @param key
-     * @param value
+     * @return
      */
-    public static void setString2encrypt(Context context, String name, String key,
-                                         String value) {
+    public static Boolean getBoolean(Context context, String name, String key,
+                                     boolean defaultValue) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(name,
                 Context.MODE_PRIVATE);
-        try {
-            value = EncryptorUtil.encryptDESStr(value, "83227587");
-        } catch (Exception ex) {
-            value = "";
-        }
-        sharedPreferences.edit().putString(key, value).commit();
+        return sharedPreferences.getBoolean(key, defaultValue);
     }
 
     /**
@@ -125,7 +103,26 @@ public class SharePreferenceUtils {
     }
 
     /**
-     * 获取String类型
+     * 添加String类型（加密）
+     *
+     * @param context
+     * @param key
+     * @param value
+     */
+    public static void setString2encrypt(Context context, String name, String key,
+                                         String value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(name,
+                Context.MODE_PRIVATE);
+        try {
+            value = DataUtil.encryptDESStr(value, "83227587");
+        } catch (Exception ex) {
+            value = "";
+        }
+        sharedPreferences.edit().putString(key, value).commit();
+    }
+
+    /**
+     * 获取String类型（解密）
      *
      * @param context
      * @param key
@@ -138,37 +135,13 @@ public class SharePreferenceUtils {
                 Context.MODE_PRIVATE);
         String value=sharedPreferences.getString(key, defaultValue);
         try{
-            value = EncryptorUtil.decryptDESStr(value, "83227587");
+            value = DataUtil.decryptDESStr(value, "83227587");
         }catch(Exception ex){
             value= "";
         }
 
         return value;
     }
-
-    /**
-     * 获取String类型
-     *
-     * @param context
-     * @param key
-     * @param defaultValue
-     * @return
-     */
-    public static String getString2decrypt(Context context, String key,
-                                           String defaultValue) {
-            if (mSharedPreferences == null) {
-            init(context);
-        }
-        String value=mSharedPreferences.getString(key, defaultValue);
-        try{
-            value = EncryptorUtil.decryptDESStr(value, "83227587");
-        }catch(Exception ex){
-            value= "";
-        }
-
-        return value;
-    }
-
     /**
      * 删除某个键�?内容
      *
@@ -194,31 +167,7 @@ public class SharePreferenceUtils {
 
     }
 
-    /**
-     * 添加Int类型
-     *
-     * @param context
-     * @param key
-     * @param value
-     */
-    public static void setInt(Context context, String name, String key, int value) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(name,
-                Context.MODE_PRIVATE);
-        sharedPreferences.edit().putInt(key, value).commit();
-    }
 
-    /**
-     * 添加Int类型
-     *
-     * @param context
-     * @param key
-     * @param value
-     */
-    public static void Int(Context context, String name, String key, int value) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(name,
-                Context.MODE_PRIVATE);
-        sharedPreferences.edit().putInt(key, value).commit();
-    }
 
 
     // 方式2
@@ -226,7 +175,6 @@ public class SharePreferenceUtils {
         if (mSharedPreferences == null) {
             //用来读取默认的偏好文件
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
         }
     }
     /**
@@ -408,7 +356,7 @@ public class SharePreferenceUtils {
     }
 
     /**
-     * 添加String类型
+     * 添加String类型（加密）
      *
      * @param context
      * @param key
@@ -421,13 +369,38 @@ public class SharePreferenceUtils {
         }
         // 对密码进行AES加密
         try {
-            value = EncryptorUtil.encryptDESStr(value, "83227587");
+            value = DataUtil.encryptDESStr(value, "83227587");
+            Toast.makeText(context,"加密成功", Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
             Toast.makeText(context, "加密失败", Toast.LENGTH_SHORT).show();
-            Toast.makeText(context,"加密成功", Toast.LENGTH_SHORT).show();
+
             value = "";
         }
         mSharedPreferences.edit().putString(key, value).commit();
+    }
+    /**
+     * 获取String类型（加密）
+     *
+     * @param context
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static String getString2decrypt(Context context, String key,
+                                           String defaultValue) {
+        if (mSharedPreferences == null) {
+            init(context);
+        }
+        String value=mSharedPreferences.getString(key, defaultValue);
+        try{
+            value = DataUtil.decryptDESStr(value, "83227587");
+            Toast.makeText(context,"解密成功", Toast.LENGTH_SHORT).show();
+        }catch(Exception ex){
+            value= "";
+            Toast.makeText(context,"解密失败", Toast.LENGTH_SHORT).show();
+        }
+
+        return value;
     }
     /**
      * 添加String类型

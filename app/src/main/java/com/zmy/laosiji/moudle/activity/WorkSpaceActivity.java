@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -138,6 +139,7 @@ public class WorkSpaceActivity extends AppCompatActivity
                             bindViewHolder.setText(R.id.textView1, "老司机开车" );
                             bindViewHolder.setText(R.id.tv_jiuyuan_content, "连网都没有，开什么车...");
                             bindViewHolder.setText(R.id.tv_jiuyuan_desc, "快去连网吧");
+                            bindViewHolder.setText(R.id.tv_confirm, "gogogo");
                         }
                     })
                     .addOnClickListener(R.id.tv_cancel, R.id.tv_confirm)
@@ -149,7 +151,14 @@ public class WorkSpaceActivity extends AppCompatActivity
                                     tDialog.dismiss();
                                     break;
                                 case R.id.tv_confirm:
-                                    ConstantUtil.toast("去联网喽！");
+                                    Intent intentSettings;
+                                    if(android.os.Build.VERSION.SDK_INT > 10){//判断版本(3.0以上)
+                                        intentSettings = new Intent(Settings.ACTION_SETTINGS);
+                                    }else{
+                                        intentSettings = new Intent();
+                                        intentSettings.setClassName("com.android.phone","com.android.phone.MobileNetWorkSettings");
+                                    }
+                                    startActivity(intentSettings);
                                     tDialog.dismiss();
                                     break;
                             }

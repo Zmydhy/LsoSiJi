@@ -6,23 +6,14 @@ import android.content.pm.PackageManager;
 
 /**
  * Created by Michael on 2018/1/11.
- * 　　　┏┓　　　┏┓
- * 　　┏┛┻━━━┛┻┓
- * 　　┃　　　　　　　┃
- * 　　┃　　　━　　　┃
- * 　　┃　┳┛　┗┳　┃
- * 　　┃　　　　　　　┃
- * 　　┃　　　┻　　　┃
- * 　　┃　　　　　　　┃
- * 　　┗━┓　　　┏━┛Code is far away from bug with the animal protecting
- * 　　　　┃　　　┃    神兽保佑,代码无bug
- * 　　　　┃　　　┃
- * 　　　　┃　　　┗━━━┓
- * 　　　　┃　　　　　 ┣┓
- * 　　　　┃　　　　 ┏┛
- * 　　　　┗┓┓┏━┳┓┏┛
- * 　　　　　┃┫┫　┃┫┫
- * 　　　　　┗┻┛　┗┻┛
+ *  1、
+ *            * 获取版本号和版本更新次数
+ * 2、
+ *           String  获得版本号
+ * 3、
+ *          * 根据版本号，获得int 在进入应用的时候比较是否需要更新(一般用这个  getIntVersion)
+ * 4、
+ *       * 将版本号变为int  便于比较
  */
 
 public class VerSionUtils {

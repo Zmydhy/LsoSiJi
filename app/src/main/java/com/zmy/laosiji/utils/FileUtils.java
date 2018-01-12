@@ -8,23 +8,23 @@ import java.io.IOException;
 
 /**
  * Created by Michael on 2017/12/5.
- * 　　　┏┓　　　┏┓
- * 　　┏┛┻━━━┛┻┓
- * 　　┃　　　　　　　┃
- * 　　┃　　　━　　　┃
- * 　　┃　┳┛　┗┳　┃
- * 　　┃　　　　　　　┃
- * 　　┃　　　┻　　　┃
- * 　　┃　　　　　　　┃
- * 　　┗━┓　　　┏━┛Code is far away from bug with the animal protecting
- * 　　　　┃　　　┃    神兽保佑,代码无bug
- * 　　　　┃　　　┃
- * 　　　　┃　　　┗━━━┓
- * 　　　　┃　　　　　 ┣┓
- * 　　　　┃　　　　 ┏┛
- * 　　　　┗┓┓┏━┳┓┏┛
- * 　　　　　┃┫┫　┃┫┫
- * 　　　　　┗┻┛　┗┻┛
+ *  1、
+ *           zoomBitmap 放大缩小图片
+ * 2、
+ *          drawableToBitmap 将Drawable转化为Bitmap
+ * 3、
+ *         getRoundedCornerBitmap 带圆角的图片
+ * 4、
+ *          saveImage 保存图片到本地
+ * 5、
+ *          compressImage 调用压缩图片的方法，返回压缩后的图片path
+ * 6、
+ *         getSmallBitmap 根据路径获得图片信息并按比例压缩，返回bitmap
+ * 7、
+ *          getSmall2Bitmap 根据路径获得图片信息并按比例压缩，返回bitmap（常用）
+ *
+ *  8、
+ *          getRealFilePath 把图片uri转Path
  */
 
 public class FileUtils {

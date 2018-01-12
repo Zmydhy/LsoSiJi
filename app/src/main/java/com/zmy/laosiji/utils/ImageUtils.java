@@ -30,23 +30,23 @@ import java.util.Locale;
 
 /**
  * Created by Michael on 2018/1/11.
- * 　　　┏┓　　　┏┓
- * 　　┏┛┻━━━┛┻┓
- * 　　┃　　　　　　　┃
- * 　　┃　　　━　　　┃
- * 　　┃　┳┛　┗┳　┃
- * 　　┃　　　　　　　┃
- * 　　┃　　　┻　　　┃
- * 　　┃　　　　　　　┃
- * 　　┗━┓　　　┏━┛Code is far away from bug with the animal protecting
- * 　　　　┃　　　┃    神兽保佑,代码无bug
- * 　　　　┃　　　┃
- * 　　　　┃　　　┗━━━┓
- * 　　　　┃　　　　　 ┣┓
- * 　　　　┃　　　　 ┏┛
- * 　　　　┗┓┓┏━┳┓┏┛
- * 　　　　　┃┫┫　┃┫┫
- * 　　　　　┗┻┛　┗┻┛
+ * 图片处理的工具类
+ *  1、
+ *           zoomBitmap 放大缩小图片
+ * 2、
+ *          drawableToBitmap 将Drawable转化为Bitmap
+ * 3、
+ *         getRoundedCornerBitmap 带圆角的图片
+ * 4、
+ *          saveImage 保存图片到本地
+ * 5、
+ *          compressImage 调用压缩图片的方法，返回压缩后的图片path
+ * 6、
+ *         getSmallBitmap 根据路径获得图片信息并按比例压缩，返回bitmap
+ * 7、
+ *          getSmall2Bitmap 根据路径获得图片信息并按比例压缩，返回bitmap（常用）
+ *  8、
+ *          getRealFilePath 把图片uri转Path
  */
 
 public class ImageUtils {
@@ -67,7 +67,7 @@ public class ImageUtils {
         Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         return newbmp;
     }
-    //将Drawable转化为Bitmap
+    // drawableToBitmap 将Drawable转化为Bitmap
     public static Bitmap drawableToBitmap(Drawable drawable){
         int width = drawable.getIntrinsicWidth();
         int height = drawable.getIntrinsicHeight();
@@ -80,7 +80,7 @@ public class ImageUtils {
         return bitmap;
 
     }
-    //带圆角的图片
+    // getRoundedCornerBitmap 带圆角的图片
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap,float roundPx){
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Bitmap.Config.ARGB_8888);
@@ -140,7 +140,7 @@ public class ImageUtils {
         return url.substring(url.lastIndexOf("/") + 1);
     }
     /**
-     *  调用压缩图片的方法，返回压缩后的图片path
+     *  compressImage 调用压缩图片的方法，返回压缩后的图片path
      */
     public static String compressImage(String filePath, String targetPath, int quality)  {
 
@@ -167,7 +167,7 @@ public class ImageUtils {
     }
 
     /**
-     * 根据路径获得图片信息并按比例压缩，返回bitmap
+     * getSmallBitmap 根据路径获得图片信息并按比例压缩，返回bitmap
      */
     public static Bitmap getSmallBitmap(String filePath) {//文件路径
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -186,7 +186,7 @@ public class ImageUtils {
         return BitmapFactory.decodeFile(filePath, options);
     }
     /**
-     * 根据路径获得图片信息并按比例压缩，返回bitmap
+     * getSmall2Bitmap 根据路径获得图片信息并按比例压缩，返回bitmap
      */
     public static Bitmap getSmall2Bitmap(String filePath){
         // 设置参数
@@ -259,7 +259,7 @@ public class ImageUtils {
     }
 
     /**
-     * 把uri转String
+     * getRealFilePath 把图片uri转Path
      * @param context
      * @param uri
      * @return
@@ -287,27 +287,5 @@ public class ImageUtils {
             }
         }
         return data;
-    }
-    private static int calculateInSampleSize(BitmapFactory.Options options,
-                                             int reqWidth, int reqHeight) {
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-        if (height > reqHeight || width > reqWidth) {
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-        return inSampleSize;
-    }
-    public static String convertIconToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] appicon = baos.toByteArray();// 转为byte数组
-        return Base64.encodeToString(appicon, Base64.DEFAULT);
-
     }
 }

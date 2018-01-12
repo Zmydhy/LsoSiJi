@@ -3,66 +3,90 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.zmy.laosiji.tcp.SocketActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="5dp"
         android:orientation="horizontal">
+
         <EditText
             android:id="@+id/ed_socket"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="输入ip+端口"
-            android:layout_height="match_parent" />
+            android:hint="输入ip+端口" />
+
         <Button
+            android:id="@+id/btn_connect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:id="@+id/btn_connect"
-            android:textColor="@color/black"
-            android:text="连接"/>
+            android:text="连接"
+            android:textColor="@color/black" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="5dp"
         android:orientation="horizontal">
+
         <LinearLayout
+            android:id="@+id/lin_socket"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发送区域"/>
-            <TextView
-                android:id="@+id/sendtext_socket"
-                android:padding="5dp"
+                android:text="发送区域" />
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/gray"/>
+                android:background="@color/gray">
+
+                <TextView
+                    android:id="@+id/sendtext_socket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray"
+                    android:padding="5dp" />
+            </ScrollView>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <Button
+                android:id="@+id/btn_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="发送"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/btn_send"/>
+                android:text="发送" />
             <Button
+                android:id="@+id/btn_sendclear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="文件上传"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/btn_sendfile"/>
+                android:text="清屏" />
+
+            <Button
+                android:id="@+id/btn_sendfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="文件上传" />
         </LinearLayout>
 
     </LinearLayout>
@@ -72,29 +96,40 @@
         android:layout_height="200dp"
         android:layout_margin="5dp"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="接收区域"/>
-            <TextView
-                android:id="@+id/recivetext_socket"
-                android:padding="5dp"
+                android:text="接收区域" />
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/gray"/>
+                android:background="@color/gray">
+
+                <TextView
+                    android:id="@+id/recivetext_socket"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray"
+                    android:padding="5dp" />
+            </ScrollView>
+
         </LinearLayout>
+
         <Button
+            android:id="@+id/btn_jiexi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="解析"
             android:layout_marginLeft="5dp"
-            android:id="@+id/btn_jiexi"/>
+            android:text="清屏" />
     </LinearLayout>
 
 

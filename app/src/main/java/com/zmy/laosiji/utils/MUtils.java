@@ -5,8 +5,13 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Selection;
+import android.text.Spannable;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,80 +22,36 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Michael on 2018/1/11.
- * 　　　┏┓　　　┏┓
- * 　　┏┛┻━━━┛┻┓
- * 　　┃　　　　　　　┃
- * 　　┃　　　━　　　┃
- * 　　┃　┳┛　┗┳　┃
- * 　　┃　　　　　　　┃
- * 　　┃　　　┻　　　┃
- * 　　┃　　　　　　　┃
- * 　　┗━┓　　　┏━┛Code is far away from bug with the animal protecting
- * 　　　　┃　　　┃    神兽保佑,代码无bug
- * 　　　　┃　　　┃
- * 　　　　┃　　　┗━━━┓
- * 　　　　┃　　　　　 ┣┓
- * 　　　　┃　　　　 ┏┛
- * 　　　　┗┓┓┏━┳┓┏┛
- * 　　　　　┃┫┫　┃┫┫
- * 　　　　　┗┻┛　┗┻┛
  *      这是一个常用的工具类
+ *  1、
+ *           hideKeyBoard 点击view强制隐藏键盘
+ * 2、
+ *          hideSoftInput直接隐藏软键盘
+ * 3、
+ *          setEdtCursor 设置EditText光标在内容之后
+ * 4、
+ *          setTvCursor 设置TextView光标在内容之后
+ * 5、
+ *          isBackground 判断app是否在前台还是在后台运行
+ * 6、
+ *           getProcessName 获取进程名字
+ * 7、
+ *          获取类名
+ *          获取方法名
+ *          获取行数
+ *          一般传参数如下：
+ *          new Throwable().getStackTrace()
+ *  8、
+ *         isFastDoubleClick（）  防止多次点击
+ *  9、
+ *          startActivty() 带或者不带参数的 跳转
  */
 
 public class MUtils {
 
-    /**
-     * 校验Tag Alias 只能是数字,英文字母和中文
-     * @param s
-     * @return
-     */
-    public static boolean isValidTagAndAlias(String s) {
-        Pattern p = Pattern.compile("^[\u4E00-\u9FA50-9a-zA-Z_!@#$&*+=.|]+$");
-        Matcher m = p.matcher(s);
-        return m.matches();
-    }
-    /**
-     * 将list倒序输出
-     * @param rawList
-     * @param <T>
-     * @return
-     */
-    public static <T> List<T> reverseList(List<T> rawList) {
-        List<T> resultList = new ArrayList<T>();
-        ListIterator<T> li = rawList.listIterator();
-        // 将游标定位到列表结尾
-        for (li = rawList.listIterator(); li.hasNext();) {
-            li.next();
-        }
-        // 逆序输出列表中的元素
-        for (; li.hasPrevious();) {
-            resultList.add(li.previous());
-        }
-        return resultList;
-    }
 
     /**
-     * 反转数组
-     *
-     * @param arrays
-     * @param <T>
-     * @return
-     */
-    public static <T> T[] reverse(T[] arrays) {
-        if (arrays == null) {
-            return null;
-        }
-        int length = arrays.length;
-        for (int i = 0; i < length / 2; i++) {
-            T t = arrays[i];
-            arrays[i] = arrays[length - i - 1];
-            arrays[length - i - 1] = t;
-        }
-        return arrays;
-    }
-
-    /**
-     * 强制隐藏键盘
+     * hideKeyBoard 点击view强制隐藏键盘
      * @param context this
      * @param view 点击的view
      */
@@ -116,11 +77,61 @@ public class MUtils {
         }
     }
 
+    /**
+     * @Description setEdtCursor 设置EditText光标在内容之后
+     */
+    public static void setEdtCursor(EditText edt) {
+        CharSequence text = edt.getText();
+        if (text instanceof Spannable) {
+            Spannable spanText = (Spannable) text;
+            Selection.setSelection(spanText, text.length());
+        }
+    }
 
+    /**
+     * @Description setTvCursor 设置TextView光标在内容之后
+     */
+    public static void setTvCursor(TextView tv) {
+        CharSequence text = tv.getText();
+        if (text instanceof Spannable) {
+            Spannable spanText = (Spannable) text;
+            Selection.setSelection(spanText, text.length());
+        }
+    }
 
 
     /**
-     * @return 获取进程名字
+     * @Description isBackground 判断app是否在前台还是在后台运行
+     */
+    public static boolean isBackground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(context.getPackageName())) {
+                /*
+                 * BACKGROUND=400 EMPTY=500 FOREGROUND=100
+				 * GONE=1000 PERCEPTIBLE=130 SERVICE=300 ISIBLE=200
+				 */
+                Log.i(context.getPackageName(), "此appimportace ="
+                        + appProcess.importance
+                        + ",context.getClass().getName()="
+                        + context.getClass().getName());
+                if (appProcess.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    Log.i(context.getPackageName(), "处于后台" + appProcess.processName);
+                    return true;
+                } else {
+                    Log.i(context.getPackageName(), "处于前台" + appProcess.processName);
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * @return getProcessName 获取进程名字
      */
     public static String getProcessName(Context cxt, int pid) {
         ActivityManager am = (ActivityManager) cxt.getSystemService(Context.ACTIVITY_SERVICE);
@@ -140,6 +151,8 @@ public class MUtils {
      * 获取类名
      * 获取方法名
      * 获取行数
+     * 一般传参数如下：
+     * new Throwable().getStackTrace()
      */
     static String className;
     static String methodName;

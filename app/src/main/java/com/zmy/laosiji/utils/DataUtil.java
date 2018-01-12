@@ -12,6 +12,9 @@ import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 import java.util.UUID;
 
@@ -27,9 +30,10 @@ import javax.crypto.spec.SecretKeySpec;
  * 随机字符串
  * 随机数字
  * 数组转字符串
+ * MD5加密
  *
  */
-public class EncryptorUtil {
+public class DataUtil {
     /**
      * 类标记
      */
@@ -87,6 +91,46 @@ public class EncryptorUtil {
         }
         result = sb.toString();
         return result;
+    }
+
+    /**
+     * 将list倒序输出
+     * @param rawList
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> reverseList(List<T> rawList) {
+        List<T> resultList = new ArrayList<T>();
+        ListIterator<T> li = rawList.listIterator();
+        // 将游标定位到列表结尾
+        for (li = rawList.listIterator(); li.hasNext();) {
+            li.next();
+        }
+        // 逆序输出列表中的元素
+        for (; li.hasPrevious();) {
+            resultList.add(li.previous());
+        }
+        return resultList;
+    }
+
+    /**
+     * 反转数组
+     *
+     * @param arrays
+     * @param <T>
+     * @return
+     */
+    public static <T> T[] reverse(T[] arrays) {
+        if (arrays == null) {
+            return null;
+        }
+        int length = arrays.length;
+        for (int i = 0; i < length / 2; i++) {
+            T t = arrays[i];
+            arrays[i] = arrays[length - i - 1];
+            arrays[length - i - 1] = t;
+        }
+        return arrays;
     }
 
     /**

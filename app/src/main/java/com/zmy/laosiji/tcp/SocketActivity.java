@@ -2,17 +2,32 @@ package com.zmy.laosiji.tcp;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zmy.laosiji.R;
 import com.zmy.laosiji.base.BaseActivity;
+import com.zmy.laosiji.moudle.activity.DialogActivity;
+import com.zmy.laosiji.utils.ByteUtil;
+import com.zmy.laosiji.utils.Constant;
 import com.zmy.laosiji.utils.ConstantUtil;
+import com.zmy.laosiji.utils.MUtils;
+import com.zmy.laosiji.utils.StringUtils;
+import com.zmy.laosiji.widgets.tdialog.TDialog;
+import com.zmy.laosiji.widgets.tdialog.base.BindViewHolder;
+import com.zmy.laosiji.widgets.tdialog.listener.OnBindViewListener;
+import com.zmy.laosiji.widgets.tdialog.listener.OnViewClickListener;
 
 import java.util.Arrays;
 
@@ -35,6 +50,11 @@ import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_startDown;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_startIng;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conntect_State;
 import static com.zmy.laosiji.tcp.TcpSocketManger.getInstance;
+import static com.zmy.laosiji.utils.DateUtil.currentDatetime;
+
+/**
+ * 编码格式为gbk可以中文
+ */
 @RuntimePermissions
 public class SocketActivity extends BaseActivity {
 
@@ -51,6 +71,11 @@ public class SocketActivity extends BaseActivity {
     @BindView(R.id.btn_jiexi)
     Button btnJiexi;
     private ProgressDialog dialog;
+    private StringBuffer stringBuffer = new StringBuffer();
+    private StringBuffer stringBuffers = new StringBuffer();
+    private String sendText = "";
+    private LinearLayout linearLayouts;
+
 
     SocketRequest socketRequest = new SocketRequest<Object>() {
         @Override
@@ -100,7 +125,9 @@ public class SocketActivity extends BaseActivity {
                     break;
                 case Conn_ReceiveSucs:
                     if (!TextUtils.isEmpty(Arrays.toString((byte[])obj))) {
-                        recivetextSocket.setText(Arrays.toString((byte[]) obj));
+                        String content = currentDatetime()+"\n"+ ByteUtil.toStringHex(ByteUtil.bytesToHexString((byte[]) obj));
+                        stringBuffers.append(content+"\n");
+                        recivetextSocket.setText(stringBuffers);
                     }
                     ConstantUtil.toast("接收成功");
                     ConstantUtil.log_e("接收成功");
@@ -134,8 +161,10 @@ public class SocketActivity extends BaseActivity {
     @Override
     protected void setContentView(Bundle savedInstanceState) {
         setContentLayout(R.layout.activity_socket);
+        linearLayouts = findViewById(R.id.lin_socket);
         setTitle("socket测试");
-        edSocket.setText("192.168.0.110:8888");
+        edSocket.setText("129.1.5.162:8888");
+        MUtils.setTvCursor(edSocket);
         if (Conntect_State) {
             btnConnect.setText("已连接");
         }
@@ -152,14 +181,26 @@ public class SocketActivity extends BaseActivity {
             }
         });
 
+        linearLayouts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //弹出评论框
+                sendDialog(v);
+            }
+        });
+
     }
 
-    @OnClick({R.id.btn_connect, R.id.btn_send, R.id.btn_jiexi})
+    @OnClick({R.id.btn_connect, R.id.btn_send, R.id.btn_jiexi,R.id.btn_sendclear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_connect:
                 if (Conntect_State) {
                     getInstance().antoClose();
+                    sendtextSocket.setText("");
+                    recivetextSocket.setText("");
+                    stringBuffer.delete(0,stringBuffer.length());
+                    stringBuffers.delete(0,stringBuffers.length());
                 } else {
                     btnConnect.setText("连接中");
                     btnConnect.setTextColor(getResources().getColor(R.color.item_border_color));
@@ -170,16 +211,25 @@ public class SocketActivity extends BaseActivity {
 
                 break;
             case R.id.btn_send:
-                if (Conntect_State) {
-                    byte[] ss = new byte[]{0x68, 0x72, 0x30, 0x66, 0x01, 0x00, 0x00, 0x68, 0x11, 0x04, 0x33, 0x33, 0x34, 0x33, (byte) 0xBB, 0x16};
-                    getInstance().sendBytes(ss);
-                    sendtextSocket.setText(Arrays.toString(ss));
-                } else {
+                if (Conntect_State && !TextUtils.isEmpty(sendText)) {
+                    //先将字符串转为十六进制字符串，然后将十六进制字符串转为byte[]发送
+                    getInstance().sendBytes(ByteUtil.hexStringToByte(ByteUtil.str2HexStr(sendText)));
+                    sendText = "";
+                } else if(!Conntect_State){
                     ConstantUtil.toast("请先连接服务器");
+                } else{
+                    ConstantUtil.toast("请输入发送的内容");
                 }
 
                 break;
             case R.id.btn_jiexi:
+                recivetextSocket.setText("");
+                stringBuffers.delete(0,stringBuffers.length());
+                break;
+
+            case R.id.btn_sendclear:
+                sendtextSocket.setText("");
+                stringBuffer.delete(0,stringBuffer.length());
                 break;
             default:
                 break;
@@ -197,7 +247,55 @@ public class SocketActivity extends BaseActivity {
     }
      @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void showPermsion(){
+    }
 
+
+    //评价 弹出输入框
+    public void sendDialog(View view) {
+        new TDialog.Builder(getSupportFragmentManager())
+                .setLayoutRes(R.layout.dialog_evaluate)
+                .setScreenWidthAspect(this, 1.0f)
+                .setGravity(Gravity.BOTTOM)
+                .setAnimation(R.style.EnterExitAnimation)
+                .addOnClickListener(R.id.btn_evluate,R.id.edSocket)
+                .setOnBindViewListener(new OnBindViewListener() {
+                    @Override
+                    public void bindView(BindViewHolder viewHolder) {
+                        final EditText editText = viewHolder.getView(R.id.editText);
+                        editText.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                InputMethodManager imm = (InputMethodManager) SocketActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.showSoftInput(editText, 0);
+                            }
+                        });
+                    }
+                })
+                .setOnViewClickListener(new OnViewClickListener() {
+                    @Override
+                    public void onViewClick(BindViewHolder viewHolder, View view, TDialog tDialog) {
+
+                        switch (view.getId()) {
+                            case R.id.btn_evluate:
+                                EditText editText = viewHolder.getView(R.id.editText);
+                                if(TextUtils.isEmpty(editText.getText().toString().trim())){
+                                    ConstantUtil.toast("输入内容为空");
+                                }else{
+                                    String content = currentDatetime()+"\n"+ editText.getText().toString().trim();
+                                    sendText = editText.getText().toString().trim();
+                                    stringBuffer.append(content+"\n");
+                                    sendtextSocket.setText(stringBuffer);
+                                    tDialog.dismiss();
+                                }
+                                break;
+                            case R.id.edSocket:
+                                tDialog.dismiss();
+                                break;
+                        }
+                    }
+                })
+                .create()
+                .show();
     }
 
 }
