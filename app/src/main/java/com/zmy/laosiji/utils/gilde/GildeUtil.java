@@ -48,7 +48,7 @@ public class GildeUtil {
          * 1内存缓存（默认开启） 2硬盘缓存
          * 若不想使用内存 则： .skipMemoryCache(true) 就跳过了内存缓存
          *
-         *   .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)  硬盘自动缓存
+         * diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)  硬盘自动缓存
          * DiskCacheStrategy.NONE： 表示不缓存任何内容。
          * DiskCacheStrategy.DATA： 表示只缓存原始图片。
          * DiskCacheStrategy.RESOURCE： 表示只缓存转换过后的图片。

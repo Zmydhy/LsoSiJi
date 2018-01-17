@@ -143,8 +143,8 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def oldFile = output.outputFile
-            if (variant.buildType.name.equals('release')&& oldFile.name.endsWith('.apk')) {
-                outputFileName  = getProductName() + "_v${defaultConfig.versionName}_${releaseTime()}_" + variant.productFlavors[0].name + '_release.apk'
+            if (variant.buildType.name.equals('release') && oldFile.name.endsWith('.apk')) {
+                outputFileName = getProductName() + "_v${defaultConfig.versionName}_${releaseTime()}_" + variant.productFlavors[0].name + '_release.apk'
             }
         }
     }

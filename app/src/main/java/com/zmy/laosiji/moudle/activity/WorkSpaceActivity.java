@@ -25,7 +25,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.hubert.library.HighLight;
 import com.app.hubert.library.NewbieGuide;
@@ -42,10 +41,8 @@ import com.zmy.laosiji.rxhttp.HttpAPi;
 import com.zmy.laosiji.rxhttp.HttpOnNextListener;
 import com.zmy.laosiji.rxhttp.RxScheduleMapper;
 import com.zmy.laosiji.tcp.SocketActivity;
-import com.zmy.laosiji.utils.Constant;
 import com.zmy.laosiji.utils.ConstantUtil;
 import com.zmy.laosiji.utils.NetStateUtils;
-import com.zmy.laosiji.utils.animatorutils.AnimatorPath;
 import com.zmy.laosiji.widgets.tdialog.TDialog;
 import com.zmy.laosiji.widgets.tdialog.base.BindViewHolder;
 import com.zmy.laosiji.widgets.tdialog.listener.OnBindViewListener;
@@ -338,7 +335,6 @@ public class WorkSpaceActivity extends AppCompatActivity
         } else if (id == R.id.nav_about) {//
             //测试线程池
 //            new ThreadTest().setTest();
-
 
         }
 

@@ -157,7 +157,7 @@ public class MUtils {
     static String className;
     static String methodName;
     static int lineNumber;
-    static void getMethodNames(StackTraceElement[] sElements) {
+   public static void getMethodNames(StackTraceElement[] sElements) {
         className = sElements[1].getFileName();
         methodName = sElements[1].getMethodName();
         lineNumber = sElements[1].getLineNumber();

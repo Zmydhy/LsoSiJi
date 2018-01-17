@@ -75,8 +75,6 @@ public class NetBroadcastReceiver extends BroadcastReceiver {
         if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
             ConnectivityManager manager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
-            Log.i(TAG1, "CONNECTIVITY_ACTION");
-
             NetworkInfo activeNetwork = manager.getActiveNetworkInfo();
             if (activeNetwork != null) { // connected to the internet
                 if (activeNetwork.isConnected()) {
@@ -92,8 +90,6 @@ public class NetBroadcastReceiver extends BroadcastReceiver {
                 } else {
                     Log.e(TAG, "当前没有网络连接1，请确保你已经打开网络 ");
                 }
-
-
                 Log.e(TAG1, "info.getTypeName()" + activeNetwork.getTypeName());
                 Log.e(TAG1, "getSubtypeName()" + activeNetwork.getSubtypeName());
                 Log.e(TAG1, "getState()" + activeNetwork.getState());
@@ -108,8 +104,6 @@ public class NetBroadcastReceiver extends BroadcastReceiver {
                 Constant.NET_STATS = false;
 
             }
-
-
         }
     }
 }

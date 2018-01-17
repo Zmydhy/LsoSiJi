@@ -3,6 +3,7 @@ package com.zmy.laosiji.tcp;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -124,9 +125,9 @@ public class SocketActivity extends BaseActivity {
                     ConstantUtil.log_e("发送失败");
                     break;
                 case Conn_ReceiveSucs:
-                    if (!TextUtils.isEmpty(Arrays.toString((byte[])obj))) {
-                        String content = currentDatetime()+"\n"+ ByteUtil.toStringHex(ByteUtil.bytesToHexString((byte[]) obj));
-                        stringBuffers.append(content+"\n");
+                    if (!TextUtils.isEmpty(Arrays.toString((byte[]) obj))) {
+                        String content = currentDatetime() + "\n" + ByteUtil.toStringHex(ByteUtil.bytesToHexString((byte[]) obj));
+                        stringBuffers.append(content + "\n");
                         recivetextSocket.setText(stringBuffers);
                     }
                     ConstantUtil.toast("接收成功");
@@ -172,12 +173,7 @@ public class SocketActivity extends BaseActivity {
         findViewById(R.id.btn_sendfile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    setUpDialog();
-                    getInstance().sendFile(filePath);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                setUpDialog();
             }
         });
 
@@ -191,7 +187,7 @@ public class SocketActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btn_connect, R.id.btn_send, R.id.btn_jiexi,R.id.btn_sendclear})
+    @OnClick({R.id.btn_connect, R.id.btn_send, R.id.btn_jiexi, R.id.btn_sendclear})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_connect:
@@ -199,8 +195,8 @@ public class SocketActivity extends BaseActivity {
                     getInstance().antoClose();
                     sendtextSocket.setText("");
                     recivetextSocket.setText("");
-                    stringBuffer.delete(0,stringBuffer.length());
-                    stringBuffers.delete(0,stringBuffers.length());
+                    stringBuffer.delete(0, stringBuffer.length());
+                    stringBuffers.delete(0, stringBuffers.length());
                 } else {
                     btnConnect.setText("连接中");
                     btnConnect.setTextColor(getResources().getColor(R.color.item_border_color));
@@ -215,38 +211,51 @@ public class SocketActivity extends BaseActivity {
                     //先将字符串转为十六进制字符串，然后将十六进制字符串转为byte[]发送
                     getInstance().sendBytes(ByteUtil.hexStringToByte(ByteUtil.str2HexStr(sendText)));
                     sendText = "";
-                } else if(!Conntect_State){
+                } else if (!Conntect_State) {
                     ConstantUtil.toast("请先连接服务器");
-                } else{
+                } else {
                     ConstantUtil.toast("请输入发送的内容");
                 }
 
                 break;
             case R.id.btn_jiexi:
                 recivetextSocket.setText("");
-                stringBuffers.delete(0,stringBuffers.length());
+                stringBuffers.delete(0, stringBuffers.length());
                 break;
 
             case R.id.btn_sendclear:
                 sendtextSocket.setText("");
-                stringBuffer.delete(0,stringBuffer.length());
+                stringBuffer.delete(0, stringBuffer.length());
                 break;
             default:
                 break;
         }
     }
 
-    private void setUpDialog(){
+    private void setUpDialog() {
         //添加弹出的对话框
         dialog = new ProgressDialog(SocketActivity.this);
         dialog.setTitle("提示");
         dialog.setMessage("正在上传文件，请稍后···");
         //将进度条设置为水平风格，让其能够显示具体的进度值
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                try {
+                    getInstance().sendFile(filePath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         dialog.setCancelable(false); //用了这个方法之后，直到图片下载完成，进度条才会消失（即使在这之前点击了屏幕）
+        dialog.show();
     }
-     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    void showPermsion(){
+
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showPermsion() {
+
     }
 
 
@@ -257,7 +266,7 @@ public class SocketActivity extends BaseActivity {
                 .setScreenWidthAspect(this, 1.0f)
                 .setGravity(Gravity.BOTTOM)
                 .setAnimation(R.style.EnterExitAnimation)
-                .addOnClickListener(R.id.btn_evluate,R.id.edSocket)
+                .addOnClickListener(R.id.btn_evluate, R.id.edSocket)
                 .setOnBindViewListener(new OnBindViewListener() {
                     @Override
                     public void bindView(BindViewHolder viewHolder) {
@@ -278,12 +287,12 @@ public class SocketActivity extends BaseActivity {
                         switch (view.getId()) {
                             case R.id.btn_evluate:
                                 EditText editText = viewHolder.getView(R.id.editText);
-                                if(TextUtils.isEmpty(editText.getText().toString().trim())){
+                                if (TextUtils.isEmpty(editText.getText().toString().trim())) {
                                     ConstantUtil.toast("输入内容为空");
-                                }else{
-                                    String content = currentDatetime()+"\n"+ editText.getText().toString().trim();
+                                } else {
+                                    String content = currentDatetime() + "\n" + editText.getText().toString().trim();
                                     sendText = editText.getText().toString().trim();
-                                    stringBuffer.append(content+"\n");
+                                    stringBuffer.append(content + "\n");
                                     sendtextSocket.setText(stringBuffer);
                                     tDialog.dismiss();
                                 }
