@@ -148,6 +148,12 @@ android {
             }
         }
     }
+    sourceSets{
+        main{
+            res.srcDirs 'src/main/res/layouts/menuitem'
+            res.srcDirs 'src/main/res/layouts/other'
+        }
+    }
 }
 
 
