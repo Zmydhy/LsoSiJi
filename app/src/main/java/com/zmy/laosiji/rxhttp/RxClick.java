@@ -35,6 +35,4 @@ public class RxClick {
                 .throttleFirst(2,TimeUnit.SECONDS)  // 才发送 2s内第1次点击按钮的事件
                 .subscribe( HttpAPi.createObserver(httpOnNextListener));
     }
-
-
 }

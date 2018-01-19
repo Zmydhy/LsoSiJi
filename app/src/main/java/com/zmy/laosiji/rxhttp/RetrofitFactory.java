@@ -1,5 +1,7 @@
 package com.zmy.laosiji.rxhttp;
 
+import com.zmy.laosiji.utils.ConstantUtil;
+
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
@@ -71,16 +73,16 @@ public class RetrofitFactory {
 //                        return chain.proceed(builder.build());
 //                    }
 //                })
-                     /*
-                    这里可以添加一个HttpLoggingInterceptor，因为Retrofit封装好了从Http请求到解析，
-                    出了bug很难找出来问题，添加HttpLoggingInterceptor拦截器方便调试接口
-                     */
-                .addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                    @Override
-                    public void log(String message) {
-
-                    }
-                }).setLevel(HttpLoggingInterceptor.Level.BODY))
+//                     /*
+//                    这里可以添加一个HttpLoggingInterceptor，因为Retrofit封装好了从Http请求到解析，
+//                    出了bug很难找出来问题，添加HttpLoggingInterceptor拦截器方便调试接口
+//                     */
+//                .addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+//                    @Override
+//                    public void log(String message) {
+//                        ConstantUtil.log_e("网络访问+1"+message);
+//                    }
+//                }).setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
         return okHttpClient;
     }

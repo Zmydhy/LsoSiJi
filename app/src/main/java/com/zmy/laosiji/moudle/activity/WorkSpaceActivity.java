@@ -119,8 +119,8 @@ public class WorkSpaceActivity extends AppCompatActivity
     }
 
     private void initDatas() {
-        TestDataBase db = Room.databaseBuilder(getApplicationContext(), TestDataBase.class, "database-name").build();
-        dao = db.testDao();
+        //获取数据库
+        dao = TestDataBase.getInstance().testDao();
         if(NetStateUtils.isNetworkConnect(getContext())){
             setCache();
             getCacheList();
@@ -190,10 +190,9 @@ public class WorkSpaceActivity extends AppCompatActivity
                         }
                         return "完成";
                     }
-                }).compose(RxScheduleMapper.io2main()).subscribe(HttpAPi.createObserver(new HttpOnNextListener<String>(WorkSpaceActivity.this) {
+                }).compose(RxScheduleMapper.io2main()).subscribe(HttpAPi.createObserver(new HttpOnNextListener<String>() {
                     @Override
                     public void onNext(String s) {
-                        ConstantUtil.log_e(s);
                         ConstantUtil.log_e("插入数据成功");
                         getCacheList();
                     }
@@ -252,12 +251,7 @@ public class WorkSpaceActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item_vlayout clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_ver) {
             recyclerViewWork.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             meiZhiWorkAdapter = new MeiZhiWorkAdapter(mCacheList, R.layout.item_work_meizhi);
@@ -356,5 +350,6 @@ public class WorkSpaceActivity extends AppCompatActivity
         startActivity(intent, options.toBundle());
 
     }
+
 
 }

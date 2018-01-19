@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.zmy.laosiji.R;
 import com.zmy.laosiji.base.BaseActivity;
 import com.zmy.laosiji.rxhttp.HttpOnNextListener;
@@ -19,7 +20,7 @@ import com.zmy.laosiji.utils.animatorutils.AnimatorPath;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -52,7 +53,6 @@ public class PermissionActivity extends BaseActivity {
 
             @Override
             public void onNext(String s) {
-                ConstantUtil.log_e(s);
                 tvPersmion.setText(s);
             }
 
@@ -84,7 +84,6 @@ public class PermissionActivity extends BaseActivity {
                         RxBus.getRxBus().post("caodan1");
                         RxBus.getRxBus().post("caodan2");
                         RxBus.getRxBus().post("caodan3");
-
                         AnimatorPath animatorPath = new AnimatorPath();
                         animatorPath.moveto(0, 400);
                         animatorPath.cubto(200, 0, 600, 800, 800, 400);
@@ -131,10 +130,13 @@ public class PermissionActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-       RxBus.getRxBus().unSubscribeOn();
+    protected void onStop() {
+        super.onStop();
+        RxView.clicks(btnAngdou).unsubscribeOn(AndroidSchedulers.mainThread());//防止内存泄漏
+        //解绑
+        RxBus.getRxBus().unSubscribeOn();
     }
+
 
     //    @OnShowRationale(Manifest.permission.CAMERA)
 //    void showCarmer(final PermissionRequest request) {

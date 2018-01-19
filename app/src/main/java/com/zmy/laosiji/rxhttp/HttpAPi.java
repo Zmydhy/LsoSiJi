@@ -105,7 +105,7 @@ public class HttpAPi {
      * @param <T>
      * @return
      */
-    public static<T> Observer<T> createObserver(final HttpOnNextListener mHttpOnNextListener){
+    public static<T> Observer<T> createObserver(final HttpOnNextListener<T> mHttpOnNextListener){
         return new Observer<T>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -134,7 +134,7 @@ public class HttpAPi {
      * @param <T>
      * @return
      */
-    public static<T> Observer<T> createHttpObserver(final HttpOnNextListener mHttpOnNextListener){
+    public static<T> Observer<T> createHttpObserver(final HttpOnNextListener<T> mHttpOnNextListener){
         return new Observer<T>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -158,6 +158,9 @@ public class HttpAPi {
         };
     }
 
+    public static<T> void  createIoFuction(BaseObservable<T> baseObservable, HttpOnNextListener observersListener){
+        createObservable(baseObservable).compose(RxScheduleMapper.<T>io2main()).subscribe(createObserver(observersListener));
+    }
 
 
 }

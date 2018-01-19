@@ -73,13 +73,12 @@ public class RxBus {
         return bus.ofType(eventType);
     }
 
-    public <T> void subscribeOn(Class<T> T, HttpOnNextListener httpOnNextListener) {
+    public <T> void subscribeOn(Class<T> T, HttpOnNextListener<T> httpOnNextListener) {
         this.httpOnNextListener = httpOnNextListener;
         toObservable(T).subscribe(HttpAPi.createObserver(httpOnNextListener));
     }
 
     public void unSubscribeOn() {
-        ConstantUtil.log_e("RxBus解绑");
         httpOnNextListener.getDisposable().dispose();
     }
 

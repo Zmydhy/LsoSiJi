@@ -53,7 +53,6 @@ public class MediaService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        ConstantUtil.log_e("onCreate()");
         mMediaPlayer = new MediaPlayer();
         iniMediaPlayerFile(i);
 

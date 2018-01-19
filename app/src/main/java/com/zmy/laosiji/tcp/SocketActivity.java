@@ -13,18 +13,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.jakewharton.rxbinding2.view.RxView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zmy.laosiji.R;
 import com.zmy.laosiji.base.BaseActivity;
-import com.zmy.laosiji.moudle.activity.DialogActivity;
+import com.zmy.laosiji.rxhttp.RxScheduleMapper;
 import com.zmy.laosiji.utils.ByteUtil;
-import com.zmy.laosiji.utils.Constant;
 import com.zmy.laosiji.utils.ConstantUtil;
 import com.zmy.laosiji.utils.MUtils;
-import com.zmy.laosiji.utils.StringUtils;
 import com.zmy.laosiji.widgets.tdialog.TDialog;
 import com.zmy.laosiji.widgets.tdialog.base.BindViewHolder;
 import com.zmy.laosiji.widgets.tdialog.listener.OnBindViewListener;
@@ -33,9 +31,9 @@ import com.zmy.laosiji.widgets.tdialog.listener.OnViewClickListener;
 import java.util.Arrays;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_CreateFail;
 import static com.zmy.laosiji.tcp.TcpSocketManger.Conn_CreateSucs;
@@ -56,7 +54,6 @@ import static com.zmy.laosiji.utils.DateUtil.currentDatetime;
 /**
  * 编码格式为gbk可以中文
  */
-@RuntimePermissions
 public class SocketActivity extends BaseActivity {
 
     @BindView(R.id.ed_socket)
@@ -71,11 +68,14 @@ public class SocketActivity extends BaseActivity {
     TextView recivetextSocket;
     @BindView(R.id.btn_jiexi)
     Button btnJiexi;
+    @BindView(R.id.lin_socket)
+    LinearLayout mLinSocket;
+    @BindView(R.id.btn_sendfile)
+    Button mBtnSendfile;
     private ProgressDialog dialog;
     private StringBuffer stringBuffer = new StringBuffer();
     private StringBuffer stringBuffers = new StringBuffer();
     private String sendText = "";
-    private LinearLayout linearLayouts;
 
 
     SocketRequest socketRequest = new SocketRequest<Object>() {
@@ -162,7 +162,6 @@ public class SocketActivity extends BaseActivity {
     @Override
     protected void setContentView(Bundle savedInstanceState) {
         setContentLayout(R.layout.activity_socket);
-        linearLayouts = findViewById(R.id.lin_socket);
         setTitle("socket测试");
         edSocket.setText("129.1.5.162:8888");
         MUtils.setTvCursor(edSocket);
@@ -170,14 +169,23 @@ public class SocketActivity extends BaseActivity {
             btnConnect.setText("已连接");
         }
         getInstance().setSocketRequest(socketRequest);
-        findViewById(R.id.btn_sendfile).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setUpDialog();
-            }
-        });
+        //运用rxpermission和rxbining快速实现了权限申请
+        RxPermissions rxPermissions = new RxPermissions(SocketActivity.this);
+        RxView.clicks(mBtnSendfile)
+                .compose(rxPermissions.ensure(Manifest.permission.CAMERA))
+                .subscribe(granted -> {
+                    if (granted) { // Always true pre-M
+                        if (Conntect_State) {
+                            setUpDialog();
+                        } else {
+                            ConstantUtil.toast("请先连接服务器");
+                        }
+                    } else {
+                        ConstantUtil.toast("请获取权限");
+                    }
+                });
 
-        linearLayouts.setOnClickListener(new View.OnClickListener() {
+        mLinSocket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //弹出评论框
@@ -253,11 +261,6 @@ public class SocketActivity extends BaseActivity {
         dialog.show();
     }
 
-    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    void showPermsion() {
-
-    }
-
 
     //评价 弹出输入框
     public void sendDialog(View view) {
@@ -305,6 +308,12 @@ public class SocketActivity extends BaseActivity {
                 })
                 .create()
                 .show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        RxView.clicks(mBtnSendfile).unsubscribeOn(AndroidSchedulers.mainThread());//防止内存泄漏
     }
 
 }
