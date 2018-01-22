@@ -313,6 +313,7 @@ public class SocketActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        socketRequest = null;
         RxView.clicks(mBtnSendfile).unsubscribeOn(AndroidSchedulers.mainThread());//防止内存泄漏
     }
 

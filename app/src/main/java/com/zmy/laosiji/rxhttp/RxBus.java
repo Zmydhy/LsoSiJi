@@ -3,6 +3,7 @@ package com.zmy.laosiji.rxhttp;
 import com.zmy.laosiji.utils.ConstantUtil;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
@@ -79,7 +80,8 @@ public class RxBus {
     }
 
     public void unSubscribeOn() {
-        httpOnNextListener.getDisposable().dispose();
+        bus.unsubscribeOn(AndroidSchedulers.mainThread());//防止内存泄漏
+//        httpOnNextListener.getDisposable().dispose();
     }
 
 

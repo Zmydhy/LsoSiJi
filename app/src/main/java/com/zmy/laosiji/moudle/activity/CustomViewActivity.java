@@ -19,8 +19,7 @@ public class CustomViewActivity extends BaseActivity {
 
     ViewPager viewpagerFragment;
     List<Fragment> mList = new ArrayList<>();
-    String[] titles = {"对号","刮刮乐"};
-    int[] layoutIds = {R.layout.fragment_ciecle_duihao,R.layout.fragment_guaguale};
+
 
 
 

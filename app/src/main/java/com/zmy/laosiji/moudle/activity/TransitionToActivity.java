@@ -136,7 +136,7 @@ public class TransitionToActivity extends AppCompatActivity {
 
                 if (visible) {
                     visible =false;
-                    btnTransition2.setRotation( 135 );
+                    btnTransition2.setRotation( 180 );
                     //            btnRecolor.setBackgroundColor(visible ? green : white); // 无动画效果
                     btnTransition1.setTextColor(getResources().getColor(white));
                     btnTransition1.setBackgroundDrawable(new ColorDrawable(getResources().getColor(green)));

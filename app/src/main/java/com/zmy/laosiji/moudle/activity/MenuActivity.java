@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.zmy.laosiji.R;
 import com.zmy.laosiji.base.BaseActivity;
+import com.zmy.laosiji.jni.JniActivity;
 import com.zmy.laosiji.rxhttp.RxBus;
 import com.zmy.laosiji.utils.ConstantUtil;
 
@@ -98,8 +99,10 @@ public class MenuActivity extends BaseActivity {
                 startActivitys(DialogActivity.class);
                 break;
             case R.id.text13:
+                startActivitys(PieActivity.class);
                 break;
             case R.id.text14:
+                startActivitys(JniActivity.class);
                 break;
             case R.id.text15:
                 break;

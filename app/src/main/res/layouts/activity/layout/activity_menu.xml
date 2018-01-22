@@ -105,7 +105,7 @@
             android:background="@color/gray"/>
         <TextView
             android:id="@+id/text13"
-            android:text="暂未开发"
+            android:text="饼状图"
             style="@style/MenuActivitytext"/>
         <View
             android:layout_width="match_parent"
@@ -114,7 +114,7 @@
 
         <TextView
             android:id="@+id/text14"
-            android:text="暂未开发"
+            android:text="ndk开发"
             style="@style/MenuActivitytext"/>
         <View
             android:layout_width="match_parent"

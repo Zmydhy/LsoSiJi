@@ -78,6 +78,8 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".moudle.activity.PieActivity" />
+        <activity android:name=".jni.JniActivity"></activity>
     </application>
 
 </manifest>

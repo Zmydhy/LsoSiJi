@@ -28,6 +28,16 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86" //cpu的类型
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
     }
 
     /**
@@ -48,6 +58,12 @@ android {
     //移除lint检测的error
     lintOptions {
         abortOnError false
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
     }
 
     //读取文件中的信息来配置打包签名
@@ -148,11 +164,11 @@ android {
             }
         }
     }
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             //将layout文件分包在layouts下创建不同的包，在包里分别创建layout文件夹，将包文件引入gradle中。
-            res.srcDirs ('src/main/res/layouts/other','src/main/res/layouts/activity','src/main/res/layouts/dialog','src/main/res/layouts/item','src/main/res/layouts/fragment')
-
+            res.srcDirs('src/main/res/layouts/other', 'src/main/res/layouts/activity', 'src/main/res/layouts/dialog', 'src/main/res/layouts/item', 'src/main/res/layouts/fragment')
+            jniLibs.srcDirs 'src/main/cpp'
         }
     }
 }
@@ -178,6 +194,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.2'
     testImplementation 'junit:junit:4.12'
 
+    //Transition框架会自动完成布局变化的动画
     implementation "com.andkulikov:transitionseverywhere:1.7.0"
 
     implementation 'io.reactivex.rxjava2:rxjava:2.1.2'
@@ -200,11 +217,12 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
     //gilde图片变换图
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
-
+    //设置skin换肤
     implementation 'skin.support:skin-support:2.1.1'
     implementation 'skin.support:skin-support-design:1.2.5'
     implementation 'skin.support:skin-support-cardview:1.2.0'
     implementation 'skin.support:skin-support-constraint-layout:1.0.2'
+    //view注解
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
@@ -225,6 +243,10 @@ dependencies {
     //监控内存检测
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //图表库
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //或者
+//    implementation 'com.github.razerdp:AnimatedPieView:1.1.4'
 
 
 }
