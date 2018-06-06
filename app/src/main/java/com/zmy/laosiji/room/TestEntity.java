@@ -2,6 +2,10 @@ package com.zmy.laosiji.room;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 
 /**
  * Created by Michael on 2017/12/25.
@@ -24,9 +28,9 @@ import android.arch.persistence.room.PrimaryKey;
  * 　　　　　┗┻┛　┗┻┛
  */
 @Entity
-public class TestEntity {
+public class TestEntity implements Serializable{
     @PrimaryKey
-    public int id;;
+    public int id;
     public String url;
 
 
@@ -45,5 +49,6 @@ public class TestEntity {
     public void setUrl(String url) {
         this.url = url;
     }
+
 
 }

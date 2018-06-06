@@ -1,5 +1,6 @@
 package com.zmy.laosiji.moudle.activity;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
@@ -48,6 +49,7 @@ import com.zmy.laosiji.widgets.tdialog.base.BindViewHolder;
 import com.zmy.laosiji.widgets.tdialog.listener.OnBindViewListener;
 import com.zmy.laosiji.widgets.tdialog.listener.OnViewClickListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -121,10 +123,10 @@ public class WorkSpaceActivity extends AppCompatActivity
     private void initDatas() {
         //获取数据库
         dao = TestDataBase.getInstance().testDao();
-        if(NetStateUtils.isNetworkConnect(getContext())){
+        if (NetStateUtils.isNetworkConnect(getContext())) {
             setCache();
             getCacheList();
-        }else {
+        } else {
             getCacheList();
             new TDialog.Builder(getSupportFragmentManager())
                     .setLayoutRes(R.layout.dialog_vb_convert)
@@ -133,7 +135,7 @@ public class WorkSpaceActivity extends AppCompatActivity
                     .setOnBindViewListener(new OnBindViewListener() {
                         @Override
                         public void bindView(BindViewHolder bindViewHolder) {
-                            bindViewHolder.setText(R.id.textView1, "老司机开车" );
+                            bindViewHolder.setText(R.id.textView1, "老司机开车");
                             bindViewHolder.setText(R.id.tv_jiuyuan_content, "连网都没有，开什么车...");
                             bindViewHolder.setText(R.id.tv_jiuyuan_desc, "快去连网吧");
                             bindViewHolder.setText(R.id.tv_confirm, "gogogo");
@@ -149,11 +151,11 @@ public class WorkSpaceActivity extends AppCompatActivity
                                     break;
                                 case R.id.tv_confirm:
                                     Intent intentSettings;
-                                    if(android.os.Build.VERSION.SDK_INT > 10){//判断版本(3.0以上)
+                                    if (android.os.Build.VERSION.SDK_INT > 10) {//判断版本(3.0以上)
                                         intentSettings = new Intent(Settings.ACTION_SETTINGS);
-                                    }else{
+                                    } else {
                                         intentSettings = new Intent();
-                                        intentSettings.setClassName("com.android.phone","com.android.phone.MobileNetWorkSettings");
+                                        intentSettings.setClassName("com.android.phone", "com.android.phone.MobileNetWorkSettings");
                                     }
                                     startActivity(intentSettings);
                                     tDialog.dismiss();
@@ -224,7 +226,7 @@ public class WorkSpaceActivity extends AppCompatActivity
                 meiZhiWorkAdapter.setOnItemClick(new MeiZhiWorkAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClik(View view, int position) {
-                        transitionTo((ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text), mCacheList.get(position).getUrl(), "妹纸在手，天下我有！");
+                        transitionTo(position, (ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text));
                     }
                 });
             }
@@ -259,7 +261,7 @@ public class WorkSpaceActivity extends AppCompatActivity
             meiZhiWorkAdapter.setOnItemClick(new MeiZhiWorkAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClik(View view, int position) {
-                    transitionTo((ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text), mCacheList.get(position).getUrl(), "妹纸在手，天下我有！");
+                    transitionTo(position, (ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text));
                 }
             });
             return true;
@@ -273,7 +275,7 @@ public class WorkSpaceActivity extends AppCompatActivity
             meiZhiWorkAdapter.setOnItemClick(new MeiZhiWorkAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClik(View view, int position) {
-                    transitionTo((ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text), mCacheList.get(position).getUrl(), "妹纸在手，天下我有！");
+                    transitionTo(position, (ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text));
                 }
             });
             return true;
@@ -286,7 +288,7 @@ public class WorkSpaceActivity extends AppCompatActivity
             meiZhiAdapter.setOnItemClick(new MeiZhiAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClik(View view, int position) {
-                    transitionTo((ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text), mCacheList.get(position).getUrl(), "妹纸在手，天下我有！");
+                    transitionTo(position, (ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text));
                 }
             });
             return true;
@@ -298,7 +300,7 @@ public class WorkSpaceActivity extends AppCompatActivity
             meiZhiDuoAdapter.setOnItemClick(new MeiZhiDuoAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClik(View view, int position) {
-                    transitionTo((ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text), mCacheList.get(position).getUrl(), "妹纸在手，天下我有！");
+                    transitionTo(position, (ImageView) view.findViewById(R.id.item_work_meizhi), (TextView) view.findViewById(R.id.item_work_text));
                 }
             });
             return true;
@@ -324,7 +326,8 @@ public class WorkSpaceActivity extends AppCompatActivity
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         } else if (id == R.id.nav_setting) {
-;           Intent intent = new Intent(this, SocketActivity.class);
+            ;
+            Intent intent = new Intent(this, SocketActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {//
             //测试线程池
@@ -337,19 +340,28 @@ public class WorkSpaceActivity extends AppCompatActivity
     }
 
 
-
-    protected void transitionTo(ImageView mImgView, TextView textView, String layoutId, String text) {
+    @SuppressLint("RestrictedApi")
+    protected void transitionTo(int position, ImageView mImgView, TextView textView) {
         Intent intent = new Intent(this, MeizhiItemActivity.class);
-        intent.putExtra("IMAGE", layoutId);
-        intent.putExtra("TEXTS", text);
+        intent.putExtra("POSITION", position);
+        intent.putExtra("Datas", (Serializable) mCacheList);
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
                 new Pair[]{Pair.create(mImgView, "testImg"),
                         Pair.create(textView, "testext")});
 
-        startActivity(intent, options.toBundle());
+        startActivityForResult(intent, 100, options.toBundle());
 
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 2) {
+            if (requestCode == 100) {
+                int three = data.getIntExtra("three", 0);
+                recyclerViewWork.smoothScrollToPosition(three);
+            }
+        }
+    }
 }

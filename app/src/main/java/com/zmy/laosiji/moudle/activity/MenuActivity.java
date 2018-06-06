@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.zmy.laosiji.R;
+import com.zmy.laosiji.aac.ZhihuActivity;
 import com.zmy.laosiji.base.BaseActivity;
 import com.zmy.laosiji.jni.JniActivity;
 import com.zmy.laosiji.rxhttp.RxBus;
 import com.zmy.laosiji.utils.ConstantUtil;
+import com.zmy.laosiji.xuanfu.XuanFuActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -102,9 +104,10 @@ public class MenuActivity extends BaseActivity {
                 startActivitys(PieActivity.class);
                 break;
             case R.id.text14:
-                startActivitys(JniActivity.class);
+                startActivitys(ZhihuActivity.class);
                 break;
             case R.id.text15:
+                startActivitys(XuanFuActivity.class);
                 break;
             default:
                 break;

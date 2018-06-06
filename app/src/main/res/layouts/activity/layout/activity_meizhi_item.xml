@@ -3,30 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/img_meizhi_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:transitionName="testImg" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="#99000000"
-        android:gravity="center">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:background="#99000000">
 
-        <TextView
-            android:id="@+id/tv_meizhi_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="妹子的心，你不懂..."
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:transitionName="testext"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="妹子的心，你不懂..."
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:transitionName="testext" />
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_recycleview_s"
+        android:layout_width="match_parent"
+        android:transitionName="testImg"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>
