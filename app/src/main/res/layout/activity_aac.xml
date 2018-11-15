@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_start_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始移动" />
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="恢复位置" />
+        <Button
+            android:id="@+id/btn_scroller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scroller" />
+    </LinearLayout>
+
+    <com.zmy.laosiji.widgets.LinearLayoutSubClass
+        android:id="@+id/lin_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/yellow">
+        <TextView
+            android:id="@+id/img_gril"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="测试文字"
+            android:background="@color/green_light"/>
+
+    </com.zmy.laosiji.widgets.LinearLayoutSubClass>
+
+
+</LinearLayout>
