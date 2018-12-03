@@ -29,9 +29,9 @@ android {
             }
         }
 
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86" //cpu的类型
-        }
+//        ndk {
+//            abiFilters "armeabi", "armeabi-v7a", "x86" //cpu的类型
+//        }
 
         externalNativeBuild {
             cmake {

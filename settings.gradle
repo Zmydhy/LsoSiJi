@@ -1,1 +1,1 @@
-include ':app',  ':app-night'
+include ':app'
